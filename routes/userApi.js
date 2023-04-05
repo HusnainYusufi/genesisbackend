@@ -76,7 +76,8 @@ app.post('/profileImage' , (req , res) =>{
                 console.log(image);
                 let data = {}
                 data.userImages = image
-
+                console.log(data);
+                
                 User.find({uid : req.body.uid} , data)
                 .exec((err , doc) =>{
                     if(err){
