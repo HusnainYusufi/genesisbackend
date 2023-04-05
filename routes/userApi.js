@@ -77,7 +77,7 @@ app.post('/profileImage' , (req , res) =>{
                 let data = {}
                 data.userImages = image
                 console.log(data);
-                
+
                 User.find({uid : req.body.uid} , data)
                 .exec((err , doc) =>{
                     if(err){
@@ -96,7 +96,7 @@ app.post('/profileImage' , (req , res) =>{
 //search by username
 app.post('/searchUser' , (req , res) =>{
     if(req.body.username){
-        User.find({username : {$regex : req.body.user + '.*'}})
+        User.find({username : {$regex : req.body.username + '.*'}})
         .exec((err , doc) =>{
             if(err){
                 return res.json(handleErr(err))
