@@ -113,18 +113,63 @@ app.post('/searchUser' , (req , res) =>{
 
 
 //get user by uid
-app.post('/getUsers' , (req , res) =>{ //translate coordincates also preferences
-    if(req.body.uid){
-        User.find({uid:req.body.uid})
+// app.post('/getUsers' , (req , res) =>{ //translate coordincates also preferences
+//     if(req.body.uid){
+//         User.find({uid:req.body.uid})
+//         .exec((err , doc) =>{
+//             if(err){
+//                 return res.json(handleErr(err))
+//             }else{
+//                 return res.json(handleSuccess(doc))
+//             }
+//         })
+//     }else{
+//         return res.json(handleErr("UID is required"))
+//     }
+// })
+
+//get myprofile
+app.post('/myProfile' , (req , res) =>{
+    if(req.body.uid !== undefined){
+        let {uid} = req.body;
+        try {
+            User.find({uid:uid})
+            .exec((err , doc) =>{
+                if(err){
+                    return res.json(handleErr(err))
+                }else{
+                    return res.json(handleSuccess(doc));
+                }
+            })
+        } catch (error) {
+            return res.json(handleErr(error));
+        }
+    }else{
+        return res.json(handleErr("UID is required"));
+    }
+})
+
+//get users with preference & coordinates & community & male/female
+app.post('/getUsers' , (req , res) =>{
+    if(req.body.uid !== undefined){
+        let {uid} = req.body;
+        User.find({uid:uid})
         .exec((err , doc) =>{
             if(err){
                 return res.json(handleErr(err))
             }else{
-                return res.json(handleSuccess(doc))
+                if(doc !== null){
+
+                }
             }
         })
+        try {
+            
+        } catch (error) {
+            return res.json(handleErr(error));
+        }
     }else{
-        return res.json(handleErr("UID is required"))
+        return res.json(handleErr("UID is required"));
     }
 })
 

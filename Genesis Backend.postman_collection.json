@@ -70,6 +70,86 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "profileImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/husna/Downloads/234sxs.PNG"
+								},
+								{
+									"key": "uid",
+									"value": "37247234872938740923",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/profileImage",
+							"protocol": "https",
+							"host": [
+								"d4dc-158-220-104-228",
+								"eu",
+								"ngrok",
+								"io"
+							],
+							"path": [
+								"user",
+								"profileImage"
+							],
+							"query": [
+								{
+									"key": "files",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "uid",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"H\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/searchUser",
+							"protocol": "https",
+							"host": [
+								"d4dc-158-220-104-228",
+								"eu",
+								"ngrok",
+								"io"
+							],
+							"path": [
+								"user",
+								"searchUser"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

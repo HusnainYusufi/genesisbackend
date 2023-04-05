@@ -34,7 +34,7 @@ app.use(function (req, res, next) {
 app.use('/user' , UserApi);
 
 app.get("/", (req, res) => {
-    res.send("<h1>hello from Valet Backend</h1>");
+    res.send("<h1>hello from Genesis Backend</h1>");
   });
   
 server.listen(port, () => {
