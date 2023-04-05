@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "f38d757f-3f7c-4ac4-8b8c-0cd05a3b3046",
+		"name": "Genesis Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12222084"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "signUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uid\" : \"\",\r\n    \"username\" : \"\",\r\n    \"email\" : \"\",\r\n    \"defaultImg\" : \"\",\r\n    \"provider\" : \"\",\r\n    \"profileFor\" : \"\",\r\n    \"phone\" : \"\",\r\n    \"country\" : \"\",\r\n    \"state\" : \"\",\r\n    \"city\" : \"\",\r\n    \"marialStatus\" : \"\",\r\n    \"diet\" : \"\",\r\n    \"height\" : \"\",\r\n    \"qualification\" : [\r\n        {\r\n            \"qualificationType\" : \"\",\r\n            \"collegeOne\" : \"\",\r\n            \"collegeTwo\" : \"\"\r\n        }\r\n    ],\r\n    \"employment\" : \"\",\r\n    \"designation\" : \"\",\r\n    \"ownBuisness\" : \"\",\r\n    \"anualIncome\" : \"\",\r\n    \"hobbies\" : [\r\n        {\r\n            \"hobby\" : \"Walking\",\r\n            \"type\" : \"Physical\"\r\n        },\r\n        {\r\n             \"hobby\" : \"Reading\",\r\n            \"type\" : \"Creativity\"\r\n        }\r\n    ],\r\n    \"gender\" : \"\",\r\n    \"bio\" : \"\",\r\n    \"age\" : 25,\r\n    \"longitude\" : \"10.52584\",\r\n\t\"latitude\" : \"10.2564\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/signUp",
+							"protocol": "https",
+							"host": [
+								"d4dc-158-220-104-228",
+								"eu",
+								"ngrok",
+								"io"
+							],
+							"path": [
+								"user",
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "completeProfile37247234872938740923",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"\",\r\n    \"email\" : \"\",\r\n    \"defaultImg\" : \"\",\r\n    \"provider\" : \"\",\r\n    \"profileFor\" : \"\",\r\n    \"phone\" : \"\",\r\n    \"country\" : \"\",\r\n    \"state\" : \"\",\r\n    \"city\" : \"\",\r\n    \"marialStatus\" : \"\",\r\n    \"diet\" : \"\",\r\n    \"height\" : \"\",\r\n    \"qualification\" : [\r\n        {\r\n            \"qualificationType\" : \"\",\r\n            \"collegeOne\" : \"\",\r\n            \"collegeTwo\" : \"\"\r\n        }\r\n    ],\r\n    \"employment\" : \"\",\r\n    \"designation\" : \"\",\r\n    \"ownBuisness\" : \"\",\r\n    \"anualIncome\" : \"\",\r\n    \"hobbies\" : [\r\n        {\r\n            \"hobby\" : \"Walking\",\r\n            \"type\" : \"Physical\"\r\n        },\r\n        {\r\n             \"hobby\" : \"Reading\",\r\n            \"type\" : \"Creativity\"\r\n        }\r\n    ],\r\n    \"gender\" : \"\",\r\n    \"bio\" : \"\",\r\n    \"age\" : 25,\r\n    \"longitude\" : \"10.52584\",\r\n\t\"latitude\" : \"10.2564\",\r\n    \"community\" : [\r\n        {\r\n            \"religion\" : \"\",\r\n            \"communityType\" : \"\",\r\n            \"motherTounge\" : \"\"\r\n        }\r\n    ],\r\n    \"preference\" : [\r\n        {\r\n            \"startage\" : 10,\r\n            \"endAge\" : 30,\r\n            \"startHeight\" : \"\",\r\n            \"endHeigh\" : \"\",\r\n            \"preferedMartialStatus\" : \"\",\r\n            \"preferedReligion\" : \"\",\r\n            \"preferedCommunity\" : \"\",\r\n            \"preferedMotherTongue\" : \"\"\r\n        }\r\n    ]\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/completeProfile37247234872938740923",
+							"protocol": "https",
+							"host": [
+								"d4dc-158-220-104-228",
+								"eu",
+								"ngrok",
+								"io"
+							],
+							"path": [
+								"user",
+								"completeProfile37247234872938740923"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
