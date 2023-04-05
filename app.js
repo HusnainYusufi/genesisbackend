@@ -30,6 +30,23 @@ app.use(function (req, res, next) {
   next();
 });
 
+//Get File
+app.get("/api/getFile:path", (req, res) => {
+  try {
+    var file = __dirname + "/uploads/" + req.params.path;
+
+    var filename = path.basename(file);
+    var mimetype = mime.getType(file);
+    //console.log('file->', file)
+    res.setHeader("Content-disposition", "attachment; filename=" + filename);
+    res.setHeader("Content-type", mimetype);
+
+    var filestream = fs.createReadStream(file);
+    filestream.pipe(res);
+  } catch (error) {
+    return res.json(handleErr(error));
+  }
+});
 
 app.use('/user' , UserApi);
 

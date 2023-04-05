@@ -162,13 +162,14 @@ app.post('/getUsers' , (req , res) =>{
                 if(doc !== null){
                     let gendertype = doc.map((gender) =>{return gender.gender})
                     let data = {}
-                    if(gendertype == 'male'){
-                        data.gender = 'female'
+                    if(gendertype == 'Male'){
+                        data.gender = 'Female'
                     }else{
-                        data.gender = 'male'
+                        data.gender = 'Male'
                     }
-                    let preferencesdata = doc.map((pref) => { return pref.preference})
-                    console.log(preference);
+                    
+                    
+                    
 
                 }
             }
