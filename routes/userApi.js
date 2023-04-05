@@ -77,7 +77,7 @@ app.post('/profileImage' , (req , res) =>{
                 let data = {}
                 data.userImages = image
 
-                User.findByIdAndUpdate(uid , data)
+                User.find({uid : req.body.uid} , data , {new:true})
                 .exec((err , doc) =>{
                     if(err){
                         return res.json(handleErr(err))
