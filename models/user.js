@@ -57,11 +57,19 @@ const preferencesSchema = mongoose.Schema({
         type : Date,
         default : Date.now()
     },
-    ageRange : { //parse it into int
+    startage : {
+        type : Number,
+        default : 0
+    },
+    endAge : {
+        type : Number,
+        default : 0
+    },
+    startHeight : {
         type : String,
         default : ""
     },
-    heightRange : { //parse it into int
+    endHeigh : {
         type : String,
         default : ""
     },

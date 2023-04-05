@@ -48,7 +48,7 @@ app.post('/completeProfile:id' , (req , res) =>{
     if(uid !== undefined){
         let data = req.body;
         try {
-            User.findByIdAndUpdate(uid , data)
+            User.findByIdAndUpdate({uid : uid} , data)
             .exec((err , doc) =>{
                 if(err){
                     return res.json(handleErr(err))
