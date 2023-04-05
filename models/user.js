@@ -13,7 +13,8 @@ const hobbiesSchema = mongoose.Schema({
 
 const qualificationSchema  = mongoose.Schema({
     createdAt : {
-
+        type : Date,
+        default : Date.now()
     },
     qualificationType : {
         type : String,
@@ -117,7 +118,8 @@ const userSchema = mongoose.Schema({
         type : String
     },
     profileFor : {
-        type : String
+        type : String,
+        default : ""
     },
     phone : {
         type : String,
@@ -142,9 +144,9 @@ const userSchema = mongoose.Schema({
     diet : {
         type : String,
         default : ""
-    },
-    height : { //parsing is done on backend
-        type : Number,
+    }, 
+    height : { //parsing is done on backend 5'11"
+        type : String,
     }, 
     qualification : [qualificationSchema],
     employment : {
@@ -193,7 +195,7 @@ const userSchema = mongoose.Schema({
     preference : [preferencesSchema],
     subscription : {
         type : mongoose.Schema.Types.ObjectId,
-        ref : ""
+        ref : "package"
     },
     publish : {
         type : String,
