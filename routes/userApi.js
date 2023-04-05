@@ -48,7 +48,7 @@ app.post('/completeProfile:id' , (req , res) =>{
     if(uid !== undefined){
         let data = req.body;
         try {
-            User.find({uid : uid} , data)
+            User.find({uid : uid} , ...data)
             .exec((err , doc) =>{
                 if(err){
                     return res.json(handleErr(err))
@@ -159,6 +159,15 @@ app.post('/getUsers' , (req , res) =>{
                 return res.json(handleErr(err))
             }else{
                 if(doc !== null){
+                    let gendertype = doc.map((gender) =>{return gender.gender})
+                    let data = {}
+                    if(gendertype == 'male'){
+                        data.gender = 'female'
+                    }else{
+                        data.gender = 'male'
+                    }
+                    let preferencesdata = doc.map((pref) => { return pref.preference})
+                    console.log(preference);
 
                 }
             }

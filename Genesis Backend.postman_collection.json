@@ -150,6 +150,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "myProfile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uid\" : \"zImCueyDGuZgAvSFC38sJGM8gKg1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/myProfile",
+							"protocol": "https",
+							"host": [
+								"d4dc-158-220-104-228",
+								"eu",
+								"ngrok",
+								"io"
+							],
+							"path": [
+								"user",
+								"myProfile"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
