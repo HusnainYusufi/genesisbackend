@@ -111,7 +111,7 @@ const userSchema = mongoose.Schema({
     uid : {
         type : String
     },
-    urlImage : [String],
+    defaultImg : [String],
     userImages : [String],
     provider : {
         type : String
