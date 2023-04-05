@@ -168,8 +168,17 @@ app.post('/getUsers' , (req , res) =>{
                         data.gender = 'Male'
                     }
                     
+                    let preferncedata = doc.map((pref) => {return pref.preference});
+                    data.preference = preferncedata;    
                     
-                    
+                    User.find({data})
+                    .exec((err , doc) =>{
+                        if(err){
+                            return res.json(handleErr(err))
+                        }else{
+                            return res.json(handleSuccess(doc));
+                        }
+                    })
 
                 }
             }
@@ -185,5 +194,20 @@ app.post('/getUsers' , (req , res) =>{
 })
 
 //images delete
+app.post('/deleteImage' , (req , res) =>{
+    if(req.body.uid !== undefined && req.body.imagename !== undefined){
+        let {uid , imagename} = req.body;
+        User.findOneAndUpdate({uid:uid} , {$pull : {userImages :imagename}} , {new:true})
+        .exec((err , doc) =>{
+            if(err){
+                return res.json(handleErr(err))
+            }else{
+                return res.json(handleSuccess(doc));
+            }
+        })
+    }else{
+        return res.json(handleErr("Something is missing check UID or Image name"));
+    }
+})
 
 module.exports = app;
