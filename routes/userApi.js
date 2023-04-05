@@ -47,8 +47,9 @@ app.post('/completeProfile:id' , (req , res) =>{
     
     if(uid !== undefined){
         let data = req.body;
+        console.log(data);
         try {
-            User.find({uid : uid} , ...data)
+            User.findOneAndUpdate({uid : uid} , data , {new:true})
             .exec((err , doc) =>{
                 if(err){
                     return res.json(handleErr(err))
@@ -78,7 +79,7 @@ app.post('/profileImage' , (req , res) =>{
                 data.userImages = image
                 console.log(data);
 
-                User.find({uid : req.body.uid} , data)
+                User.findOneAndUpdate({uid : req.body.uid} , data)
                 .exec((err , doc) =>{
                     if(err){
                         return res.json(handleErr(err))
