@@ -20,6 +20,12 @@ app.post('/signUp' , (req , res) =>{
     if(req.body.uid !== undefined){
         try {
             let data = req.body;
+            data.geometry = {
+                type : "Point",
+                coordinates : [data.longitude  , data.latitude]
+            }
+            delete data.longitude
+            delete data.latitude
             User.create(data , (err , doc) =>{
                 if(err){
                     return res.json(handleErr(err))
