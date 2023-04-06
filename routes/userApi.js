@@ -14,8 +14,18 @@ const uid = require('uid')
 const upload = require('../HandleFunction/UploadFile')
 const uploadMult = require('../HandleFunction/UploadMulti')
 const User = require('../models/user');
+const mocdata = require('../mocdata.json');
 
-
+//bulk upload
+app.post('/bulkUpload' , (req , res) =>{
+    User.create(mocdata , (err , doc) =>{
+        if(err){
+            return res.json(handleErr(err))
+        }else{
+            return res.json(handleSuccess(doc))
+        }
+    })
+})
 
 //signup user
 app.post('/signUp' , (req , res) =>{
@@ -169,8 +179,20 @@ app.post('/getUsers' , (req , res) =>{
                     }else{
                         data.gender = 'Male'
                     }
-                  
-                    return res.json(handleSuccess(doc.gender));
+                    // data.preference = doc.preference;
+                    // data.community = doc.community;
+                    
+                    User.find({ data })
+                    .exec((err , doc) =>{
+                        if(err){
+                            return res.json(handleErr(err))
+                        }else{
+                            return res.json(handleSuccess(doc));
+                        }
+                    })
+                    
+                }else{
+                    return res.json(handleErr("No Data Found"))
                 }
             }
         })
