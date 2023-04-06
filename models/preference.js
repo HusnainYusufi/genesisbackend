@@ -1,6 +1,6 @@
-const mognoose = require('mongoose');
+const mongoose = require('mongoose');
 
-const preferenceSchema = mognoose.Schema({
+const preferenceSchema = mongoose.Schema({
 
     createdAt : {
         type : Date,

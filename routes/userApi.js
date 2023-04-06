@@ -15,10 +15,56 @@ const upload = require('../HandleFunction/UploadFile')
 const uploadMult = require('../HandleFunction/UploadMulti')
 const User = require('../models/user');
 const mocdata = require('../new.json');
+const prefmoc = require('../pref.json');
+const communitymoc = require('../community.json');
+const Community = require('../models/community');
+const Preference = require('../models/preference');
+const mongoose = require("mongoose");
+const ObjectId = mongoose.mongo.ObjectId
 
-//bulk upload
+//bulk upload user
 app.post('/bulkUpload' , (req , res) =>{
     User.create(mocdata , (err , doc) =>{
+        if(err){
+            return res.json(handleErr(err))
+        }else{
+            return res.json(handleSuccess(doc))
+        }
+    })
+})
+
+//bulk upload community
+app.post('/bulkUploadCommunity' , (req , res) =>{
+   let updcom = communitymoc.map((item) =>({
+    uid : mongoose.Types.ObjectId(String(item.uid)),
+        religion : item.uid,
+        communityType : item.uid,
+        motherTounge : item.uid,
+        gender : item.uid
+   }))
+   Community.insertMany(updcom , (err , doc) =>{
+    if(err){
+        return res.json(handleErr(err))
+    }else{
+        return res.json(handleSuccess(doc))
+    }
+})
+})
+
+//bulk upload preference
+app.post('/bulkUploadPreference' , (req , res) =>{
+    let updpref = prefmoc.map((item) =>({
+        uid : mongoose.Types.ObjectId(String(item.uid)),
+        startage : item.startage,
+        endAge : item.endAge,
+        startHeight : item.startHeight,
+        endHeight : item.endHeight,
+        preferedMartialStatus: item.preferedMartialStatus,
+        preferedReligion : item.preferedReligion,
+        preferedCommunity : item.preferedCommunity,
+        preferedMotherTongue : item.preferedMotherTongue,
+       }))
+    Preference.insertMany(updpref , (err , doc) =>{
         if(err){
             return res.json(handleErr(err))
         }else{
@@ -45,13 +91,13 @@ app.get('/deleteUsers' , (req , res) =>{
 app.get('/getUid' ,(req , res) =>{
    
     try {
-        User.find({} , {uid:1})
+        User.find({} , {_id:1})
         .exec((err , doc) =>{
             if(err){
                 return res.json(handleErr(err))
             }else{
                 if(doc !== null){
-                    let uids = doc.map((ui) =>{ return ui.uid});
+                    let uids = doc.map((ui) =>{ return ui._id});
                     fs.writeFile('data.txt', uids.join(','), function (err) {
                         if (err) {
                           console.error(err);
