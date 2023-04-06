@@ -265,8 +265,9 @@ app.post('/getUsers' , (req , res) =>{
                     }else{
                         data.gender = 'Male'
                     }
-                    // data.preference = doc.preference;
-                    //data.community = doc.community;
+                    Community.find({uid:doc_id})
+                    
+                    
                     
                 }else{
                     return res.json(handleErr("No Data Found"))

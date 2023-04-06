@@ -15,6 +15,8 @@ const mime = require("mime");
 const handleErr = require("./HandleFunction/HandleErr");
 const path = require("path");
 const UserApi = require('./routes/userApi.js');
+const CommunityApi = require('./routes/communityApi');
+const PreferenceApi = require('./routes/preferenceApi');
 
 connectdb(DATABASE_URL);
 app.use(cors());
@@ -48,6 +50,8 @@ app.get("/api/getFile:path", (req, res) => {
   }
 });
 app.use('/user' , UserApi);
+app.use('/community' , CommunityApi);
+app.use('/preference' , PreferenceApi);
 
 app.get("/", (req, res) => {
     res.send("<h1>hello from Genesis Backend</h1>");
