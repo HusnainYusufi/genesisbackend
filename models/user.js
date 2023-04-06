@@ -32,64 +32,6 @@ const qualificationSchema  = mongoose.Schema({
 
 })
 
-const communitySchema = mongoose.Schema({
-    createdAt : {
-        type : Date,
-        default : Date.now()
-    },
-    religion : {
-        type : String,
-        default : ""
-    },
-    communityType : {
-        type : String,
-        default : ""
-    },
-    motherTounge : {
-        type : String,
-        default : ""
-    }
-
-})
-
-const preferencesSchema = mongoose.Schema({
-    createdAt : {
-        type : Date,
-        default : Date.now()
-    },
-    startage : {
-        type : Number,
-        default : 0
-    },
-    endAge : {
-        type : Number,
-        default : 0
-    },
-    startHeight : {
-        type : String,
-        default : ""
-    },
-    endHeigh : {
-        type : String,
-        default : ""
-    },
-    preferedMartialStatus : {
-        type :  String,
-        default : ""
-    },
-    preferedReligion : {
-        type : String,
-        default : ""
-    },
-    preferedCommunity : {
-        type : String,
-        default : ""
-    },
-    preferedMotherTongue : {
-        type : String,
-        default : ""
-    }
-});
 
 const locationSchema = mongoose.Schema({
 
@@ -199,8 +141,14 @@ const userSchema = mongoose.Schema({
         min : 0
     },
     geometry : locationSchema,
-    community  : [communitySchema],
-    preference : [preferencesSchema],
+    community  : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "communities"
+    },
+    preference : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "preferences"
+    },
     subscription : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "package"

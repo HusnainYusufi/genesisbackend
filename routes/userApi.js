@@ -27,6 +27,22 @@ app.post('/bulkUpload' , (req , res) =>{
     })
 })
 
+
+//bulk delete
+app.get('/deleteUsers' , (req , res) =>{
+    try {
+        User.deleteMany((err , doc) =>{
+            if(err){
+                return res.json(handleErr(err))
+            }else{
+                return res.json(handleSuccess(doc));
+            }
+        })
+    } catch (error) {
+        return res.json(handleErr(error));
+    }
+})
+
 //signup user
 app.post('/signUp' , (req , res) =>{
     if(req.body.uid !== undefined){
@@ -180,9 +196,9 @@ app.post('/getUsers' , (req , res) =>{
                         data.gender = 'Male'
                     }
                     // data.preference = doc.preference;
-                    // data.community = doc.community;
+                    //data.community = doc.community;
                     
-                    User.find({ data })
+                    User.find({ ...data })
                     .exec((err , doc) =>{
                         if(err){
                             return res.json(handleErr(err))

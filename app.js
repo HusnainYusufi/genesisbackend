@@ -47,7 +47,6 @@ app.get("/api/getFile:path", (req, res) => {
     return res.json(handleErr(error));
   }
 });
-
 app.use('/user' , UserApi);
 
 app.get("/", (req, res) => {
