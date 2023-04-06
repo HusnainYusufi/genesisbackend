@@ -14,7 +14,7 @@ const uid = require('uid')
 const upload = require('../HandleFunction/UploadFile')
 const uploadMult = require('../HandleFunction/UploadMulti')
 const User = require('../models/user');
-const mocdata = require('../mocdata.json');
+const mocdata = require('../new.json');
 
 //bulk upload
 app.post('/bulkUpload' , (req , res) =>{
@@ -27,7 +27,6 @@ app.post('/bulkUpload' , (req , res) =>{
     })
 })
 
-
 //bulk delete
 app.get('/deleteUsers' , (req , res) =>{
     try {
@@ -36,6 +35,31 @@ app.get('/deleteUsers' , (req , res) =>{
                 return res.json(handleErr(err))
             }else{
                 return res.json(handleSuccess(doc));
+            }
+        })
+    } catch (error) {
+        return res.json(handleErr(error));
+    }
+})
+
+app.get('/getUid' ,(req , res) =>{
+   
+    try {
+        User.find({} , {uid:1})
+        .exec((err , doc) =>{
+            if(err){
+                return res.json(handleErr(err))
+            }else{
+                if(doc !== null){
+                    let uids = doc.map((ui) =>{ return ui.uid});
+                    fs.writeFile('data.txt', uids.join(','), function (err) {
+                        if (err) {
+                          console.error(err);
+                        } else {
+                          console.log('Data written to file successfully.');
+                        }
+                      });
+                }
             }
         })
     } catch (error) {
@@ -197,15 +221,6 @@ app.post('/getUsers' , (req , res) =>{
                     }
                     // data.preference = doc.preference;
                     //data.community = doc.community;
-                    
-                    User.find({ ...data })
-                    .exec((err , doc) =>{
-                        if(err){
-                            return res.json(handleErr(err))
-                        }else{
-                            return res.json(handleSuccess(doc));
-                        }
-                    })
                     
                 }else{
                     return res.json(handleErr("No Data Found"))

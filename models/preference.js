@@ -22,7 +22,7 @@ const preferenceSchema = mognoose.Schema({
         type : String,
         default : ""
     },
-    endHeigh : {
+    endHeight : {
         type : String,
         default : ""
     },
