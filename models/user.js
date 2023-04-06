@@ -32,7 +32,6 @@ const qualificationSchema  = mongoose.Schema({
 
 })
 
-
 const locationSchema = mongoose.Schema({
 
     type : {
@@ -46,6 +45,24 @@ const locationSchema = mongoose.Schema({
     }
  
  });
+
+ const purchaseHistorySchema = mongoose.Schema({
+    createdAt : {
+        type : Date,
+        default : Date.now()
+    },
+    paymentMethod:{
+        type:String
+    },
+    transactionId:{
+        type:String
+    },
+    amount:{
+        type:Number,
+        min:0
+    }
+
+ })
 
 const userSchema = mongoose.Schema({
 
@@ -156,7 +173,8 @@ const userSchema = mongoose.Schema({
     publish : {
         type : String,
         default : "Pending"
-    }
+    },
+    purchaseHistory : [purchaseHistorySchema]
 })
 
 userSchema.index({username : 'text'});
