@@ -210,4 +210,27 @@ app.post('/deleteImage' , (req , res) =>{
     }
 })
 
+
+//get user status 
+app.post('/getUserStatus' , (req , res) =>{
+    if(req.body.uid !== undefined){
+        let {uid} = req.body;
+        try {
+            User.find({uid : uid} , {publish:1})
+            .exec((err , doc) =>{
+                if(err){
+                    return res.json(handleErr(err))
+                }else{
+                    return res.json(handleSuccess(doc));
+                }
+            })
+        } catch (error) {
+            return res.json(handleErr(error));
+        }
+    }else{
+        return res.json(handleErr("UID is required"));
+    }
+})
+
+
 module.exports = app;
