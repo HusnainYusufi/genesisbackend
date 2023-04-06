@@ -15,6 +15,8 @@ const upload = require('../HandleFunction/UploadFile')
 const uploadMult = require('../HandleFunction/UploadMulti')
 const User = require('../models/user');
 
+
+
 //signup user
 app.post('/signUp' , (req , res) =>{
     if(req.body.uid !== undefined){
@@ -154,32 +156,21 @@ app.post('/myProfile' , (req , res) =>{
 app.post('/getUsers' , (req , res) =>{
     if(req.body.uid !== undefined){
         let {uid} = req.body;
-        User.find({uid:uid})
+        User.findOne({uid:uid})
         .exec((err , doc) =>{
             if(err){
                 return res.json(handleErr(err))
             }else{
                 if(doc !== null){
-                    let gendertype = doc.map((gender) =>{return gender.gender})
+                    
                     let data = {}
-                    if(gendertype == 'Male'){
+                    if(doc.gender === 'Male'){
                         data.gender = 'Female'
                     }else{
                         data.gender = 'Male'
                     }
-                    
-                    let preferncedata = doc.map((pref) => {return pref.preference});
-                    data.preference = preferncedata;    
-                    
-                    User.find({data})
-                    .exec((err , doc) =>{
-                        if(err){
-                            return res.json(handleErr(err))
-                        }else{
-                            return res.json(handleSuccess(doc));
-                        }
-                    })
-
+                  
+                    return res.json(handleSuccess(doc.gender));
                 }
             }
         })
@@ -197,6 +188,7 @@ app.post('/getUsers' , (req , res) =>{
 app.post('/deleteImage' , (req , res) =>{
     if(req.body.uid !== undefined && req.body.imagename !== undefined){
         let {uid , imagename} = req.body;
+        const imagePath = path.join(__dirname, 'uploads', imagename);
         User.findOneAndUpdate({uid:uid} , {$pull : {userImages :imagename}} , {new:true})
         .exec((err , doc) =>{
             if(err){
