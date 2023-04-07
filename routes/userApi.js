@@ -240,13 +240,13 @@ app.post('/myProfile' , (req , res) =>{
                     return res.json(handleErr(err))
                 }else{
                     if(doc !== null){
-                        community.find({_id:doc_id})
+                        community.find({_id:doc._id})
                         .exec((err2 , comm) =>{
                             if(err2){
                                 return res.json(handleErr(err2))
                             }else{
                                 if(comm !== null){
-                                    Preference.find({_id:doc_id})
+                                    Preference.find({_id:doc._id})
                                     .exec((err3 , pref) =>{
                                         if(err3){
                                             return res.json(handleErr(err))
