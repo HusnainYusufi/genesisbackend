@@ -25,7 +25,7 @@ const ObjectId = mongoose.mongo.ObjectId
 //add community
 
 app.post('/addCommunity' , (req , res) =>{
-    if(req.body.uid !== undefined ){
+    if(req.body._id !== undefined ){
         let data = req.body;
         Community.create(data , (err , doc) =>{
             if(err){

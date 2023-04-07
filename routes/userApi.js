@@ -476,7 +476,9 @@ app.post('/getUserStatus' , (req , res) =>{
     }else{
         return res.json(handleErr("UID is required"));
     }
-})
+});
+
+//
 
 
 module.exports = app;

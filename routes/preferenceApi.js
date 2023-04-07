@@ -24,7 +24,7 @@ const ObjectId = mongoose.mongo.ObjectId
 
 
 app.post('/addPreference' , (req , res) =>{
-    if(req.body.uid !== undefined ){
+    if(req.body._id !== undefined ){
         let data = req.body;
         Preference.create(data , (err , doc) =>{
             if(err){
@@ -37,6 +37,8 @@ app.post('/addPreference' , (req , res) =>{
             return res.json(handleErr("UID is required"))
         }
 })
+
+
 
 
 module.exports = app;
