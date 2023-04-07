@@ -20,6 +20,7 @@ const communitymoc = require('../community.json');
 const Community = require('../models/community');
 const Preference = require('../models/preference');
 const mongoose = require("mongoose");
+const community = require('../models/community');
 const ObjectId = mongoose.mongo.ObjectId
 
 //bulk upload user
@@ -237,7 +238,30 @@ app.post('/myProfile' , (req , res) =>{
                 if(err){
                     return res.json(handleErr(err))
                 }else{
-                    return res.json(handleSuccess(doc));
+                    if(doc !== null){
+                        community.find({_id:uid})
+                        .exec((err2 , comm) =>{
+                            if(err2){
+                                return res.json(handleErr(err2))
+                            }else{
+                                if(comm !== null){
+                                    Preference.find({_id:uid})
+                                    .exec((err3 , pref) =>{
+                                        if(err3){
+                                            return res.json(handleErr(err))
+                                        }else{
+                                            let response = {
+                                                profile : doc,
+                                                community : comm,
+                                                preference : pref
+                                            }
+                                            return res.json(handleSuccess(response));
+                                        }
+                                    })
+                                }
+                            }
+                        })
+                    }
                 }
             })
         } catch (error) {
@@ -265,17 +289,32 @@ app.post('/getUsers' , (req , res) =>{
                     }else{
                         data.gender = 'Male'
                     }
-                    Community.find({uid:doc_id})
-                    
-                    
-                    
+                    Preference.find({uid:doc._id})
+                    .exec((err2 , pref) =>{
+                        if(err){
+                            return res.json(handleErr(err))
+                        }else{
+                            if(doc !== null){
+                                community.find({uid:doc._id})
+                                .exec((err3 , comm) =>{
+                                    if(err3){
+                                        return res.json(handleErr(err3))
+                                    }else{
+                                        data.preference = pref;
+                                        data.community = comm;
+                                        console.log(data);
+
+                                    }
+                                })
+                            }
+                        }
+                    })         
                 }else{
                     return res.json(handleErr("No Data Found"))
                 }
             }
         })
-        try {
-            
+        try {     
         } catch (error) {
             return res.json(handleErr(error));
         }
