@@ -21,7 +21,6 @@ const Community = require('../models/community');
 const Preference = require('../models/preference');
 const mongoose = require("mongoose");
 const community = require('../models/community');
-const preference = require('../models/preference');
 const ObjectId = mongoose.mongo.ObjectId
 
 //bulk upload user
@@ -236,21 +235,25 @@ app.post('/myProfile' , (req , res) =>{
         try {
             User.find({uid:uid})
             .exec((err , doc) =>{
+              
                 if(err){
                     return res.json(handleErr(err))
                 }else{
+                    
                     if(doc !== null){
-                        community.find({uid:doc._id})
+                        community.findOne({uid:doc[0]._id})
                         .exec((err2 , comm) =>{
                             if(err2){
                                 return res.json(handleErr(err2))
                             }else{
+                                
                                 if(comm !== null){
-                                    Preference.find({uid:doc._id})
+                                    Preference.findOne({uid:doc[0]._id})
                                     .exec((err3 , pref) =>{
                                         if(err3){
                                             return res.json(handleErr(err))
                                         }else{
+                                            
                                             let response = {
                                                 profile : doc,
                                                 community : comm,
