@@ -461,7 +461,7 @@ app.post('/deleteImage' , (req , res) =>{
 
 
 //get user status 
-app.post('/getUserStatus' , (req , res) =>{
+app.post('/status' , (req , res) =>{
     if(req.body.uid !== undefined){
         let {uid} = req.body;
         try {
