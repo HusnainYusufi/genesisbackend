@@ -23,8 +23,21 @@ const mongoose = require("mongoose");
 const ObjectId = mongoose.mongo.ObjectId
 
 //add community
-app.post('/addCommunity' , (req , res) =>{
 
-});
+app.post('/addCommunity' , (req , res) =>{
+    if(req.body.uid !== undefined ){
+        let data = req.body;
+        Community.create(data , (err , doc) =>{
+            if(err){
+                return res.json(handleErr(err))
+            }else{
+                return res.json(handleSuccess(doc));
+            }
+        })
+        }else{
+            return res.json(handleErr("UID is required"))
+        }
+})
+
 
 module.exports = app;
