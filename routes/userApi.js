@@ -240,13 +240,13 @@ app.post('/myProfile' , (req , res) =>{
                     return res.json(handleErr(err))
                 }else{
                     if(doc !== null){
-                        community.find({_id:uid})
+                        community.find({_id:doc_id})
                         .exec((err2 , comm) =>{
                             if(err2){
                                 return res.json(handleErr(err2))
                             }else{
                                 if(comm !== null){
-                                    Preference.find({_id:uid})
+                                    Preference.find({_id:doc_id})
                                     .exec((err3 , pref) =>{
                                         if(err3){
                                             return res.json(handleErr(err))
@@ -273,108 +273,6 @@ app.post('/myProfile' , (req , res) =>{
     }
 })
 
-//get users with preference & coordinates & community & male/female
-// app.post('/getUsers' , (req , res) =>{
-//     if(req.body.uid !== undefined){
-//         let {uid} = req.body;
-//         User.findOne({uid:uid})
-//         .exec((err , doc) =>{
-//             if(err){
-//                 return res.json(handleErr(err))
-//             }else{
-//                 if(doc !== null){
-                    
-//                     let data = {}
-//                     if(doc.gender === 'Male'){
-//                         data.gender = 'Female'
-//                     }else{
-//                         data.gender = 'Male'
-//                     }
-//                     Preference.find({uid:doc._id})
-//                     .exec((err2 , pref) =>{
-//                         if(err){
-//                             return res.json(handleErr(err))
-//                         }else{
-//                             if(doc !== null){
-//                                 community.find({uid:doc._id})
-//                                 .exec((err3 , comm) =>{
-//                                     if(err3){
-//                                         return res.json(handleErr(err3))
-//                                     }else{
-//                                         data.preference = pref;
-//                                         data.community = comm;
-                                        
-//                                         Preference.find({
-//                                             $or : [
-//                                                 {
-//                                                     startage : { $gte: data.preference[0].startage },
-//                                                     endAge : { $lte: data.preference[0].endAge },
-//                                                     preferedMartialStatus : data.preference[0].preferedMartialStatus,
-//                                                     preferedReligion : data.preference[0].preferedReligion,
-//                                                     preferedCommunity : data.preference[0].preferedCommunity,
-//                                                     preferedMotherTongue : data.preference[0].preferedMotherTongue
-
-//                                                 }
-//                                             ]
-//                                         })
-//                                         .exec((err5 , doc2) =>{
-//                                             if(err5){
-//                                                 return res.json(handleErr(err5))
-//                                             }else{
-//                                                 if(doc2 !== undefined){
-//                                                     const communityFilters = data.community.map(c => ({
-//                                                         religion: c.religion,
-//                                                         communityType: c.communityType,
-//                                                         motherTounge: c.motherTounge
-//                                                       }));
-
-//                                                       const communityQuery = { $or: communityFilters };
-
-//                                                       Community.find(communityQuery)
-//                                                       .exec((err6 , doc3) =>{
-//                                                         if(err6){
-//                                                             return res.json(handleErr(err6))
-//                                                         }else{
-//                                                             if(doc3 !== undefined){
-//                                                                 User.find({gender : data.gender})
-//                                                                 .exec((err7 , doc4) =>{
-//                                                                     if(err7){
-//                                                                         return res.json(handleErr(err7))
-//                                                                     }else{
-//                                                                        let response = {
-//                                                                             userprofile : doc4,
-//                                                                             community : doc3,
-//                                                                             preference : doc2
-//                                                                        }
-
-                                                                       
-                                                                       
-//                                                                     }
-//                                                                 })
-//                                                             }
-//                                                         }
-//                                                     })
-//                                                 }
-//                                             }
-//                                         })
-//                                     }
-//                                 })
-//                             }
-//                         }
-//                     })         
-//                 }else{
-//                     return res.json(handleErr("No Data Found"))
-//                 }
-//             }
-//         })
-//         try {     
-//         } catch (error) {
-//             return res.json(handleErr(error));
-//         }
-//     }else{
-//         return res.json(handleErr("UID is required"));
-//     }
-// })
 
 app.post('/getUsers:page' ,  (req , res) =>{
     const perPage = 10;
