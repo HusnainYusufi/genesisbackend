@@ -275,7 +275,7 @@ app.post('/myProfile' , (req , res) =>{
 
 
 app.post('/getUsers:page' ,  (req , res) =>{
-    const perPage = 10;
+    const perPage = 20;
     const page = req.params.page || 1;
     
     if(req.body.uid !== undefined){
@@ -399,9 +399,12 @@ app.post('/getUsers:page' ,  (req , res) =>{
                                                                                                 filtercommunity : filtercommunity,
                                                                                                 filteredPref : filteredPref,
                                                                                                 current: page,
-                                                                                                pages: Math.ceil(commcount+prefcount / perPage),
+                                                                                                pagesPref: Math.ceil(prefcount / perPage),
+                                                                                                pagesComm: Math.ceil(commcount / perPage),
                                                                                                 total: commcount+prefcount,
-                                                                                           }
+                                                                                                preftotal : prefcount,
+                                                                                                commtotal : commcount,
+                                                                                           }    
                                                                                            return res.json(handleSuccess(response));
                                                                                         }
                                                                                       })
