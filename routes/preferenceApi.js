@@ -24,7 +24,7 @@ const ObjectId = mongoose.mongo.ObjectId
 
 
 app.post('/addPreference' , (req , res) =>{
-    if(req.body._id !== undefined ){
+    if(req.body.uid !== undefined ){
         let data = req.body;
         Preference.create(data , (err , doc) =>{
             if(err){
