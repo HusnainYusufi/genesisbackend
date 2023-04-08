@@ -49,9 +49,9 @@ app.get("/api/getFile:path", (req, res) => {
     return res.json(handleErr(error));
   }
 });
-app.use('/user' , UserApi);
-app.use('/community' , CommunityApi);
-app.use('/preference' , PreferenceApi);
+// app.use('/user' , UserApi);
+// app.use('/community' , CommunityApi);
+// app.use('/preference' , PreferenceApi);
 
 app.get("/", (req, res) => {
     res.send("<h1>hello from Genesis Backend</h1>");
