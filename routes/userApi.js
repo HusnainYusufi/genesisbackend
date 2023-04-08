@@ -228,50 +228,40 @@ app.post('/searchUser' , (req , res) =>{
 // })
 
 //get myprofile
-app.post('/myProfile' , (req , res) =>{
-    if(req.body.uid !== undefined){
-        let {uid} = req.body;
-        try {
-            User.find({uid:uid})
-            .exec((err , doc) =>{
-              
-                if(err){
-                    return res.json(handleErr(err))
-                }else{
-                    
-                    if(doc !== null){
-                        Community.findOne({uid:doc[0]._id})
-                        .exec((err2 , comm) =>{
-                            if(err2){
-                                return res.json(handleErr(err2))
-                            }else{
-                                
-                                if(comm !== null){
-                                    Preference.findOne({uid:doc[0]._id})
-                                    .exec((err3 , pref) =>{
-                                        if(err3){
-                                            return res.json(handleErr(err))
-                                        }else{
-                                            
-                                            let response = {
-                                                profile : doc,
-                                                community : comm,
-                                                preference : pref
-                                            }
-                                            return res.json(handleSuccess(response));
-                                        }
-                                    })
-                                }
+
+//profile
+app.get('/profile:id' , async (req ,  res) =>{
+    const profid = req.params.id;
+    try {
+        const doc1 = await User.find({uid:profid}).exec()
+        
+        if(doc1 !== undefined){
+            try {
+                
+            const doc2 = await Community.findOne({uid:doc1[0]._id}).exec()
+                if( doc2 !== undefined){
+                    try {
+                        const doc3 = await Preference.findOne({uid:doc1[0]._id}).exec()
+                        if(doc3 !== undefined){
+                            let response = {
+                                profile : doc1,
+                                community : doc2,
+                                preference : doc3
                             }
-                        })
+                            return res.json(handleSuccess(response));
+                        }
+                    } catch (error) {
+                        return res.json(handleErr(error));
                     }
                 }
-            })
-        } catch (error) {
-            return res.json(handleErr(error));
+            } catch (error) {
+                return res.json(handleErr(error));
+            }
+        }else{
+            return res.json(handleErr("User Not Found"));
         }
-    }else{
-        return res.json(handleErr("UID is required"));
+    } catch (error) {
+        return res.json(handleErr(error));
     }
 })
 
