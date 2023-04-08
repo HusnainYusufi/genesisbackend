@@ -20,7 +20,6 @@ const communitymoc = require('../community.json');
 const Community = require('../models/community');
 const Preference = require('../models/preference');
 const mongoose = require("mongoose");
-const community = require('../models/community');
 const ObjectId = mongoose.mongo.ObjectId
 
 //bulk upload user
@@ -241,7 +240,7 @@ app.post('/myProfile' , (req , res) =>{
                 }else{
                     
                     if(doc !== null){
-                        community.findOne({uid:doc[0]._id})
+                        Community.findOne({uid:doc[0]._id})
                         .exec((err2 , comm) =>{
                             if(err2){
                                 return res.json(handleErr(err2))
@@ -302,13 +301,13 @@ app.post('/getUsers:page' ,  (req , res) =>{
                             return res.json(handleErr(err))
                         }else{
                             if(doc !== null){
-                                community.find({uid:doc._id})
+                                Community.find({uid:doc._id})
                                 .exec((err3 , comm) =>{
                                     if(err3){
                                         return res.json(handleErr(err3))
                                     }else{
                                         data.preference = pref;
-                                        data.community = comm;
+                                        data.Community = comm;
                                         
                                         Preference.find({
                                             $or : [
@@ -336,7 +335,7 @@ app.post('/getUsers:page' ,  (req , res) =>{
                                                 return res.json(handleErr(err5))
                                             }else{
                                                 if(doc2 !== undefined){
-                                                    const communityFilters = data.community.map(c => ({
+                                                    const communityFilters = data.Community.map(c => ({
                                                         religion: c.religion,
                                                         communityType: c.communityType,
                                                         motherTounge: c.motherTounge
