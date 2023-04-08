@@ -14,7 +14,6 @@ const uid = require('uid')
 const upload = require('../HandleFunction/UploadFile')
 const uploadMult = require('../HandleFunction/UploadMulti')
 const User = require('../models/user');
-
 const Community = require('../models/community');
 const Preference = require('../models/preference');
 const mongoose = require("mongoose");
