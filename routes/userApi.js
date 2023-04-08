@@ -77,7 +77,7 @@ app.post('/bulkUploadPreference' , (req , res) =>{
 //bulk delete
 app.get('/deleteUsers' , (req , res) =>{
     try {
-        Community.deleteMany((err , doc) =>{
+        User.deleteMany((err , doc) =>{
             if(err){
                 return res.json(handleErr(err))
             }else{
