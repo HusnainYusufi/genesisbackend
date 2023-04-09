@@ -547,7 +547,7 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                                         let filtercommunity = doc5.filter((item) => item.uid.gender !== data.gender);
 
                                                         console.log(filteredPref);
-                                                        let response = {
+                                                        let response = [{
                                                             filtercommunity : filtercommunity,
                                                             filteredPref : filteredPref,
                                                             current: page,
@@ -556,7 +556,7 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                                             total: doc6+doc7,
                                                             preftotal : doc6,
                                                             commtotal : doc7,
-                                                       }    
+                                                     }]    
                                                        return res.json(handleSuccess(response));
                                                      }else{
                                                         return res.json("Count is not available community");
