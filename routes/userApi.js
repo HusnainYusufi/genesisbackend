@@ -457,7 +457,7 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
     if(req.body.uid !== undefined){
         try {
             const doc = await User.findOne({uid:req.body.uid}).exec()
-            if(doc !== undefined){
+            if(doc !== null){
                 let data = {}
                     if(doc.gender === 'Male'){
                         data.gender = 'Female'
@@ -465,10 +465,10 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                         data.gender = 'Male'
                     }
                    const doc2 = await Preference.find({uid:doc._id}).exec();
-                   if(doc2 !== undefined){
+                   if(doc2 !== null){
                        try {
                         const doc3 = await Community.find({uid:doc._id}).exec();
-                        if(doc3 !== undefined){
+                        if(doc3 !== null){
                             data.preference = doc2;
                             data.community = doc3;
                             try {
@@ -495,7 +495,7 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                 }
                             ])
                             .exec()
-                            if(doc4 !== undefined){
+                            if(doc4 !== null){
                                 try {
                                     const communityFilters = data.community.map(c => ({
                                         religion: c.religion,
@@ -515,7 +515,7 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                         }
                                       ])
                                       .exec()
-                                      if(doc5 !== undefined){
+                                      if(doc5 !== null){
                                         try {
                                             const doc6 = await Preference.countDocuments({
                                                 $or : [
@@ -531,7 +531,7 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                                 ]
                                             })
                                             .exec()
-                                            if(doc6 !== undefined){
+                                            if(doc6 !== null){
                                                 try {
                                                     const communityFilters = data.community.map(c => ({
                                                         religion: c.religion,
@@ -542,7 +542,7 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                                       const communityQuery = { $or: communityFilters };
 
                                                      const doc7 = await Community.countDocuments(communityQuery).exec()
-                                                     if(doc7 !== undefined){
+                                                     if(doc7 !== null){
                                                         let filteredPref = doc4.filter((item) => item.uid.gender !== data.gender)
                                                         let filtercommunity = doc5.filter((item) => item.uid.gender !== data.gender);
 
