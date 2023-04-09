@@ -562,25 +562,30 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                                         return res.json("Count is not available community");
                                                      }
                                                 } catch (error) {
-                                                    return res.json(handleErr(error));
+                                                    return res.json(handleSuccess(doc5));
                                                 }
                                             }else{
                                                 return res.json(handleErr("Count is not defined"));
                                             }
                                         } catch (error) {
-                                            return res.json(handleErr(error));
+                                            return res.json(handleSuccess(doc4));
                                         }
                                       }else{
                                         return res.json(handleErr("Community Not Found"));
                                       }
                                 } catch (error) {
-                                    return res.json(handleErr(error));
+                                    return res.json(handleSuccess(doc3));
                                 }
                             }else{
                                 return res.json(handleErr("No data found"));
                             }
                             } catch (error) {
-                                return res.json(handleErr(error));
+                                let response11 = {
+                                    profile : doc,
+                                    preference : doc2
+                                }
+
+                                return res.json(handleSuccess(response11));
                             }
                         }else{
                             let response1 = {
@@ -591,15 +596,15 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                         }
                         
                        } catch (error) {
-                        return res.json(handleErr(error));
+                        return res.json(handleSuccess("here are u1"));
                        }
 
                    }else{
-                        return res.json(handleSuccess(doc));
+                        return res.json(handleSuccess(doc2));
                    }
 
             }else{
-                return res.json(handleErr("Invalid UID"));
+                return res.json(handleSuccess(doc));
             }
         } catch (error) {
             return res.json(handleErr(error));
