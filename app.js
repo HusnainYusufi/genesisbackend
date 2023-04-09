@@ -17,6 +17,7 @@ const path = require("path");
 const UserApi = require('./routes/userApi.js');
 const CommunityApi = require('./routes/communityApi');
 const PreferenceApi = require('./routes/preferenceApi');
+const ChatApi = require('./routes/chatApi.js');
 
 connectdb(DATABASE_URL);
 app.use(cors());
@@ -30,6 +31,45 @@ app.use(function (req, res, next) {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
+});
+
+const io = require('socket.io')(server, {
+  path: '/custom',
+  reconnection: true,
+  reconnectionAttempts: 3,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  randomizationFactor: 0.5,
+  timeout: 20000,
+  autoConnect: true,
+  query: {},
+  // options of the Engine.IO io
+  upgrade: true,
+  forceJSONP: false,
+  jsonp: true,
+  forceBase64: false,
+  enablesXDR: false,
+  timestampRequests: true,
+  timestampParam: 't',
+  policyPort: 843,
+  transports: ['polling', 'websocket'],
+  transportOptions: {},
+  rememberUpgrade: false,
+  onlyBinaryUpgrades: false,
+  requestTimeout: 0,
+  protocols: [],
+  // options for Node.js
+  agent: false,
+  pfx: null,
+  key: null,
+  passphrase: null,
+  cert: null,
+  ca: null,
+  ciphers: [],
+  rejectUnauthorized: false,
+  perMessageDeflate: true,
+  forceNode: false,
+  localAddress: null,
 });
 
 //Get File
@@ -49,9 +89,195 @@ app.get("/api/getFile:path", (req, res) => {
     return res.json(handleErr(error));
   }
 });
+
 app.use('/user' , UserApi);
 app.use('/community' , CommunityApi);
 app.use('/preference' , PreferenceApi);
+app.use('/chat' , ChatApi);
+
+io.engine.on("connection_error", (err) => {
+  console.log(err);
+});
+
+io.on('connection', (socket) => {
+  io.emit('connecteddd', {
+    message: "yahoooo"
+  })
+  socket.on('newMessageDone', (data) => {
+    console.log('oidhfsdf===>', data)
+    io.emit('messageSentSuccess', data)
+  })
+
+  socket.on('newMessage', (data) => {
+    console.log('message---->', data)
+    if (data.id && data.messageType !== undefined && data.messageSender !== undefined && data.sender) {
+      let { id, messageType, messageSender, sender } = data
+      let message = {}
+      if (messageType === 0) {
+        if (data.text) {
+          message = {
+            text: data.text,  
+            messageType,
+            messageSender,
+            sender
+
+          }
+        }
+        else {
+          let response = {
+            data: "Message text is required",
+            message: "Failed"
+          }
+          return io.emit('messageSent', response)
+        }
+      }
+      else if (messageType === 1) {
+        if (data.filePath) {
+          message = {
+            filePath: data.filePath,
+            messageType,
+            messageSender,
+            sender
+
+          }
+        }
+        else {
+          let response = {
+            data: "File path is required",
+            message: "Failed"
+          }
+          return io.emit('messageSent', response)
+        }
+      }
+      else if (messageType === 2) {
+        if (data.purchaseOffer) {
+          message = {
+            purchaseOffer: data.purchaseOffer,
+            messageType,
+            messageSender,
+            sender,
+            offerStatus: "pending"
+          }
+        }
+        else {
+          let response = {
+            data: "Purchase offer is required",
+            message: "Failed"
+          }
+          return io.emit('messageSent', response)
+        }
+      }
+      Chat.findByIdAndUpdate(id, { $push: { messages: message }, lastMessage: new Date() }, { new: true })
+        .populate([
+          {
+            path: "seller",
+            model: "users"
+          },
+          {
+            path: "buyer",
+            model: "users"
+          },
+          {
+            path: "listing",
+            model: "listings"
+          },
+          {
+            path: "messages.purchaseOffer",
+            models: "offers"
+          }
+        ]).exec((err, chat) => {
+          if (err) {
+            let response = {
+              message: "Failed",
+              data: err
+            }
+            io.emit('messageSent', response)
+          }
+          else {
+            let response = {
+              message: "Success",
+              data: chat
+            }
+            io.emit('messageSent', response)
+          }
+        })
+    }
+    else {
+      let response = {
+        data: "Message details are required",
+        message: "Failed"
+      }
+      io.emit('messageSent', response)
+    }
+  })
+  /**
+   {
+"id":"6284f25814b90659f96ad204",
+"messageId":"62878337d21e8c0537d4bf07"
+}
+   */
+  //Accept Offer request
+  socket.on('acceptOfferRequest', (data) => {
+    // console.log('message---->',data)
+    if (data.id && data.messageId) {
+      let { id, messageId } = data
+      Chat.findOneAndUpdate({ _id: new ObjectId(id), "messages._id": new ObjectId(messageId) }, {
+        $set: { "messages.$.offerStatus": "accepted" }
+      }).exec((err, doc) => {
+        if (err) {
+          let response = {
+            message: "Failed",
+            data: err
+          }
+          io.emit('offerRequestAccepted', response)
+        }
+        else {
+          Chat.findById(id).populate([
+            {
+              path: "seller",
+              model: "users"
+            },
+            {
+              path: "buyer",
+              model: "users"
+            },
+            {
+              path: "listing",
+              model: "listings"
+            },
+            {
+              path: "messages.purchaseOffer",
+              models: "offers"
+            }
+          ]).exec((er, chat) => {
+            if (er) {
+              let response = {
+                message: "Failed",
+                data: er
+              }
+              io.emit('offerRequestAccepted', response)
+            } else {
+              let response = {
+                message: "Success",
+                data: chat
+              }
+
+              io.emit('offerRequestAccepted', response)
+            }
+          })
+        }
+      })
+    }
+    else {
+      let response = {
+        data: "Message details are required",
+        message: "Failed"
+      }
+      io.emit('offerRequestAccepted', response)
+    }
+  })
+ 
+});
 
 app.get("/", (req, res) => {
     res.send("<h1>hello from Genesis Backend</h1>");
