@@ -574,7 +574,30 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                         return res.json(handleErr("Community Not Found"));
                                       }
                                 } catch (error) {
-                                    return res.json(handleSuccess(doc3));
+                                    const preferrordoc = await  Preference.find({
+                                        $or : [
+                                            {
+                                                startage : { $gte: data.preference[0].startage },
+                                                endAge : { $lte: data.preference[0].endAge },
+                                                preferedMartialStatus : data.preference[0].preferedMartialStatus,
+                                                preferedReligion : data.preference[0].preferedReligion,
+                                                preferedCommunity : data.preference[0].preferedCommunity,
+                                                preferedMotherTongue : data.preference[0].preferedMotherTongue
+        
+                                            }
+                                        ]
+                                    })
+                                    .skip((perPage * page) - perPage)
+                                    .limit(perPage)
+                                    .populate([
+                                        {
+                                            "path" : "uid",
+                                            "model" : "users"
+                                        }
+                                    ])
+                                    .exec()
+                                    let errorpefer = preferrordoc.filter((item) => item.uid.gender !== data.gender)
+                                    return res.json(handleSuccess(errorpefer))
                                 }
                             }else{
                                 return res.json(handleErr("No data found"));
