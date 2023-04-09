@@ -43,4 +43,4 @@ const chatSchema = mongoose.Schema({
     }
 })
 
-module.exports = app;
+module.exports = mongoose.model("chats" , chatSchema);
