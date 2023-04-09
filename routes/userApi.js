@@ -674,7 +674,18 @@ app.post('/status' , (req , res) =>{
     }
 });
 
-//
+//login
+app.post('/login' , async (req , res) =>{
+    try {
+        if(req.body.email !== undefined && req.body.password !== undefined){
+
+        }else{
+            return res.json(handleErr("All Fields are required"));
+        }
+    } catch (error) {
+        return res.json(handleErr(error));
+    }
+})
 
 
 module.exports = app;

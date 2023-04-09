@@ -105,7 +105,7 @@ io.on('connection', (socket) => {
   })
   socket.on('newMessageDone', (data) => {
     console.log('oidhfsdf===>', data)
-    io.emit('messageSentSuccess', data)
+    io.emit('messageSentSuccess', "Han mehdi mill gya hai");
   })
 
   socket.on('newMessage', (data) => {
