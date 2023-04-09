@@ -195,7 +195,7 @@ app.post('/profileImage' , (req , res) =>{
                 data.userImages = image
                 console.log(data);
 
-                User.findOneAndUpdate({uid : req.body.uid} , data)
+                User.findOneAndUpdate({uid : req.body.uid} , {$push : {userImages:data.userImages}} , {new:true})
                 .exec((err , doc) =>{
                     if(err){
                         return res.json(handleErr(err))
