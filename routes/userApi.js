@@ -33,6 +33,24 @@ app.post('/bulkUpload' , (req , res) =>{
     })
 })
 
+//getid
+app.get('/getIds' , (req , res) =>{
+    User.find((err , doc) =>{
+        if(err){
+            return res.json(handleErr(err))
+        }else{
+            const ids = doc.map(docs => docs._id);
+            fs.writeFile('ids.txt', ids.join(','), err => { // write to file
+                if (err) {
+                  console.error(err);
+                  return;
+                }
+                console.log('Ids written to file successfully!');
+              });
+        }
+    })
+})
+
 //bulk upload community
 app.post('/bulkUploadCommunity' , (req , res) =>{
    let updcom = communitymoc.map((item) =>({
@@ -76,7 +94,7 @@ app.post('/bulkUploadPreference' , (req , res) =>{
 //bulk delete
 app.get('/deleteUsers' , (req , res) =>{
     try {
-        User.deleteMany((err , doc) =>{
+        Community.deleteMany((err , doc) =>{
             if(err){
                 return res.json(handleErr(err))
             }else{
@@ -263,7 +281,7 @@ app.get('/profile:id' , async (req ,  res) =>{
     } catch (error) {
         return res.json(handleErr(error));
     }
-})
+});
 
 
 app.post('/getUsers:page' ,  (req , res) =>{
@@ -272,12 +290,13 @@ app.post('/getUsers:page' ,  (req , res) =>{
     
     if(req.body.uid !== undefined){
         let {uid} = req.body;
-        User.findOne({uid:uid})
+        User.find({uid:req.body.uid})
         .exec((err , doc) =>{
+            console.log(doc);
             if(err){
                 return res.json(handleErr(err))
             }else{
-                if(doc !== null){
+                if(doc !== undefined){
                     
                     let data = {}
                     if(doc.gender === 'Male'){
@@ -290,7 +309,7 @@ app.post('/getUsers:page' ,  (req , res) =>{
                         if(err){
                             return res.json(handleErr(err))
                         }else{
-                            if(doc !== null){
+                            if(doc !== undefined){
                                 Community.find({uid:doc._id})
                                 .exec((err3 , comm) =>{
                                     if(err3){
@@ -428,6 +447,163 @@ app.post('/getUsers:page' ,  (req , res) =>{
     }else{
         return res.json(handleErr("UID is required"));
     }
+});
+
+//getprefered profiles
+app.post('/getPreferedProfiles:page' , async (req , res) =>{
+    const perPage = 20;
+    const page = req.params.page || 1;
+
+    if(req.body.uid !== undefined){
+        try {
+            const doc = await User.findOne({uid:req.body.uid}).exec()
+            if(doc !== undefined){
+                let data = {}
+                    if(doc.gender === 'Male'){
+                        data.gender = 'Female'
+                    }else{
+                        data.gender = 'Male'
+                    }
+                   const doc2 = await Preference.find({uid:doc._id}).exec();
+                   if(doc2 !== undefined){
+                       try {
+                        const doc3 = await Community.find({uid:doc._id}).exec();
+                        if(doc3 !== undefined){
+                            data.preference = doc2;
+                            data.community = doc3;
+                            try {
+                                
+                            const doc4 = await  Preference.find({
+                                $or : [
+                                    {
+                                        startage : { $gte: data.preference[0].startage },
+                                        endAge : { $lte: data.preference[0].endAge },
+                                        preferedMartialStatus : data.preference[0].preferedMartialStatus,
+                                        preferedReligion : data.preference[0].preferedReligion,
+                                        preferedCommunity : data.preference[0].preferedCommunity,
+                                        preferedMotherTongue : data.preference[0].preferedMotherTongue
+
+                                    }
+                                ]
+                            })
+                            .skip((perPage * page) - perPage)
+                            .limit(perPage)
+                            .populate([
+                                {
+                                    "path" : "uid",
+                                    "model" : "users"
+                                }
+                            ])
+                            .exec()
+                            if(doc4 !== undefined){
+                                try {
+                                    const communityFilters = data.community.map(c => ({
+                                        religion: c.religion,
+                                        communityType: c.communityType,
+                                        motherTounge: c.motherTounge
+                                      }));
+
+                                      const communityQuery = { $or: communityFilters };
+
+                                     const doc5 = await Community.find(communityQuery)
+                                      .skip((perPage * page) - perPage)
+                                      .limit(perPage)
+                                      .populate([
+                                        {
+                                            "path" : "uid",
+                                            "model" : "users"
+                                        }
+                                      ])
+                                      .exec()
+                                      if(doc5 !== undefined){
+                                        try {
+                                            const doc6 = await Preference.countDocuments({
+                                                $or : [
+                                                    {
+                                                        startage : { $gte: data.preference[0].startage },
+                                                        endAge : { $lte: data.preference[0].endAge },
+                                                        preferedMartialStatus : data.preference[0].preferedMartialStatus,
+                                                        preferedReligion : data.preference[0].preferedReligion,
+                                                        preferedCommunity : data.preference[0].preferedCommunity,
+                                                        preferedMotherTongue : data.preference[0].preferedMotherTongue
+    
+                                                    }
+                                                ]
+                                            })
+                                            .exec()
+                                            if(doc6 !== undefined){
+                                                try {
+                                                    const communityFilters = data.community.map(c => ({
+                                                        religion: c.religion,
+                                                        communityType: c.communityType,
+                                                        motherTounge: c.motherTounge
+                                                      }));
+
+                                                      const communityQuery = { $or: communityFilters };
+
+                                                     const doc7 = await Community.countDocuments(communityQuery).exec()
+                                                     if(doc7 !== undefined){
+                                                        let filteredPref = doc4.filter((item) => item.uid.gender !== data.gender)
+                                                        let filtercommunity = doc5.filter((item) => item.uid.gender !== data.gender);
+
+                                                        console.log(filteredPref);
+                                                        let response = {
+                                                            filtercommunity : filtercommunity,
+                                                            filteredPref : filteredPref,
+                                                            current: page,
+                                                            pagesPref: Math.ceil(doc6 / perPage),
+                                                            pagesComm: Math.ceil(doc7 / perPage),
+                                                            total: doc6+doc7,
+                                                            preftotal : doc6,
+                                                            commtotal : doc7,
+                                                       }    
+                                                       return res.json(handleSuccess(response));
+                                                     }else{
+                                                        return res.json("Count is not available community");
+                                                     }
+                                                } catch (error) {
+                                                    return res.json(handleErr(error));
+                                                }
+                                            }else{
+                                                return res.json(handleErr("Count is not defined"));
+                                            }
+                                        } catch (error) {
+                                            return res.json(handleErr(error));
+                                        }
+                                      }else{
+                                        return res.json(handleErr("Community Not Found"));
+                                      }
+                                } catch (error) {
+                                    return res.json(handleErr(error));
+                                }
+                            }else{
+                                return res.json(handleErr("No data found"));
+                            }
+                            } catch (error) {
+                                return res.json(handleErr(error));
+                            }
+                        }else{
+                            return res.json(handleErr("Error here!!!"));
+                        }
+                        
+                       } catch (error) {
+                        return res.json(handleErr(error));
+                       }
+
+                   }else{
+                        return res.json(handleErr("Preference Not Found"));
+                   }
+
+            }else{
+                return res.json(handleErr("Invalid UID"));
+            }
+        } catch (error) {
+            return res.json(handleErr(error));
+        }
+    }else{
+        return res.json(handleErr("UID is required"));
+    }
+
 })
 
 //images delete
