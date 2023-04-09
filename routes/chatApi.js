@@ -67,6 +67,79 @@ app.post('/getChat', (req, res) => {
     } else {
         return res.json(handleErr('Chat data can not be null'))
     }
+});
+
+//My buyer chats
+app.post('/senderChats', (req, res) => {
+    if (req.body.sender) {
+        let { sender } = req.body
+        Chat.find({ sender:req.body.sender }).sort({ lastMessage: -1 }).populate([
+            {
+                path: "sender",
+                model: "users"
+            },
+            {
+                path: "receiver",
+                model: "users"
+            }
+        ]).exec((err, docs) => {
+            if (err) return res.json(handleErr(err))
+            else {
+                return res.json(handleSuccess(docs))
+            }
+        })
+    } else {
+        return res.json(handleErr('User can not be null'))
+    }
 })
+
+//My seller chats
+app.post('/receiverChats', (req, res) => {
+    if (req.body.receiver) {
+        let { receiver } = req.body
+        Chat.find({ receiver:req.body.receiver }).sort({ lastMessage: -1 }).populate([
+            {
+                path: "sebder",
+                model: "users"
+            },
+            {
+                path: "receiver",
+                model: "users"
+            }
+        ]).exec((err, docs) => {
+            if (err) return res.json(handleErr(err))
+            else {
+                return res.json(handleSuccess(docs))
+            }
+        })
+    } else {
+        return res.json(handleErr('User can not be null'))
+    }
+})
+
+//Get my all chats
+app.post('/getAllMyChats', (req, res) => {
+    if (req.body.user) {
+        let { user } = req.body
+        Chat.find({ $or: [{ sender: user }, { receiver: user }] }).sort({ lastMessage: -1 }).populate([
+            {
+                path: "sender",
+                model: "users"
+            },
+            {
+                path: "receiver",
+                model: "users"
+            }
+        ]).exec((err, docs) => {
+            if (err) return res.json(handleErr(err))
+            else {
+                return res.json(handleSuccess(docs))
+            }
+        })
+    } else {
+        return res.json(handleErr('User can not be null'))
+    }
+})
+
 
 module.exports = app;
