@@ -580,12 +580,8 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                 return res.json(handleErr("No data found"));
                             }
                             } catch (error) {
-                                let response11 = {
-                                    profile : doc,
-                                    preference : doc2
-                                }
-
-                                return res.json(handleSuccess(response11));
+                                const genderwise = await User.find({gender : data.gender}).exec()
+                                return res.json(handleSuccess(genderwise));
                             }
                         }else{
                             let response1 = {
