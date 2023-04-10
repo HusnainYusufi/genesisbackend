@@ -575,37 +575,13 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                         return res.json(handleErr("Community Not Found"));
                                       }
                                 } catch (error) {
-                                    const preferrordoc = await  Preference.find({
-                                        $or : [
-                                            {
-                                                startage : { $gte: data.preference[0].startage },
-                                                endAge : { $lte: data.preference[0].endAge },
-                                                preferedMartialStatus : data.preference[0].preferedMartialStatus,
-                                                preferedReligion : data.preference[0].preferedReligion,
-                                                preferedCommunity : data.preference[0].preferedCommunity,
-                                                preferedMotherTongue : data.preference[0].preferedMotherTongue
-        
-                                            }
-                                        ]
-                                    })
-                                    .skip((perPage * page) - perPage)
-                                    .limit(perPage)
-                                    .populate([
-                                        {
-                                            "path" : "uid",
-                                            "model" : "users"
-                                        }
-                                    ])
-                                    .exec()
-                                    let errorpefer = preferrordoc.filter((item) => item.uid.gender !== data.gender)
-                                    return res.json(handleSuccess(errorpefer))
+                                   return res.json(handleErr(error));
                                 }
                             }else{
                                 return res.json(handleErr("No data found"));
                             }
                             } catch (error) {
-                                const genderwise = await User.find({gender : data.gender}).exec()
-                                return res.json(handleSuccess(genderwise));
+                                return res.json(handleErr(error))
                             }
                         }else{
                             let response1 = {
@@ -616,15 +592,15 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                         }
                         
                        } catch (error) {
-                        return res.json(handleSuccess("here are u1"));
+                        return res.json(handleErr(error))
                        }
 
                    }else{
-                        return res.json(handleSuccess(doc2));
+                        return res.json(handleErr("Error"));
                    }
 
             }else{
-                return res.json(handleSuccess(doc));
+                return res.json(handleErr("Error"));
             }
         } catch (error) {
             return res.json(handleErr(error));
