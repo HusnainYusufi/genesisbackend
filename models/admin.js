@@ -18,7 +18,10 @@ const adminSchema = mongoose.Schema({
     password : {
         type : String
     },
-
+    
+    role : {
+        type : String
+    }
 })
 
 module.exports = mongoose.model("admins" , adminSchema);

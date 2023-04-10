@@ -18,6 +18,7 @@ const UserApi = require('./routes/userApi.js');
 const CommunityApi = require('./routes/communityApi');
 const PreferenceApi = require('./routes/preferenceApi');
 const ChatApi = require('./routes/chatApi.js');
+const Chat = require('./models/chat.js');
 
 connectdb(DATABASE_URL);
 app.use(cors());

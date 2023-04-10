@@ -464,6 +464,7 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                     }else{
                         data.gender = 'Male'
                     }
+
                    const doc2 = await Preference.find({uid:doc._id}).exec();
                    if(doc2 !== null){
                        try {
