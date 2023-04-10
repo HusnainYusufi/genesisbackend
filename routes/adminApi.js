@@ -63,7 +63,7 @@ app.get('/getAllProfiles' , async (req , res) =>{
     
     try {
         const doc = await User.find({}).exec();
-        return res.json(handleSuccess(doc));
+        return res.json(handleSuccess(doc[0]));
     } catch (error) {
         return res.json(handleErr(error));
     }
