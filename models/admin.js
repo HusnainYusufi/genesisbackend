@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const adminSchema = mongoose.Schema({
 
@@ -18,9 +18,10 @@ const adminSchema = mongoose.Schema({
     password : {
         type : String
     },
-    
+
     role : {
-        type : String
+        type : String,
+        default : "Admin"
     }
 })
 
