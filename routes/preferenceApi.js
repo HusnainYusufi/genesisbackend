@@ -60,6 +60,8 @@ app.post('/addPreference:id' , (req , res) =>{
                     })
 
                 }else{
+                    data.uid = sid;
+                    console.log(data);
                     Preference.create(data , (err , doc4) =>{
                         if(err){
                             return res.json(handleErr(err))

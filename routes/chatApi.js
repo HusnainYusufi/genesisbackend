@@ -121,16 +121,8 @@ app.post('/receiverChats', (req, res) => {
 app.post('/getAllMyChats', (req, res) => {
     if (req.body.user) {
         let { user } = req.body
-        Chat.find({ $or: [{ sender: user }, { receiver: user }] }).sort({ lastMessage: -1 }).populate([
-            {
-                path: "sender",
-                model: "users"
-            },
-            {
-                path: "receiver",
-                model: "users"
-            }
-        ]).exec((err, docs) => {
+        Chat.find({ $or: [{ sender: user }, { receiver: user }] }).sort({ lastMessage: -1 })
+        .exec((err, docs) => {
             if (err) return res.json(handleErr(err))
             else {
                 return res.json(handleSuccess(docs))
