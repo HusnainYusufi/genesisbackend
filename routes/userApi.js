@@ -544,10 +544,12 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
 
                                                      const doc7 = await Community.countDocuments(communityQuery).exec()
                                                      if(doc7 !== null){
-                                                        let filteredPref = doc4.filter((item) => item.uid.gender !== data.gender)
-                                                        let filtercommunity = doc5.filter((item) => item.uid.gender !== data.gender);
+                                                
+                                                        let filteredPref = doc4.filter((item) => item.uid.gender == data.gender);
+                                                     
+                                                        let filtercommunity = doc5.filter((item) => item.uid.gender == data.gender);
 
-                                                        console.log(filteredPref);
+                                                
                                                         let response = [{
                                                             filtercommunity : filtercommunity,
                                                             filteredPref : filteredPref,
