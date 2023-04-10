@@ -172,21 +172,14 @@ io.on('connection', (socket) => {
       Chat.findByIdAndUpdate(id, { $push: { messages: message }, lastMessage: new Date() }, { new: true })
         .populate([
           {
-            path: "seller",
+            path: "sender",
             model: "users"
           },
           {
-            path: "buyer",
+            path: "receiver",
             model: "users"
-          },
-          {
-            path: "listing",
-            model: "listings"
-          },
-          {
-            path: "messages.purchaseOffer",
-            models: "offers"
           }
+          
         ]).exec((err, chat) => {
           if (err) {
             let response = {
@@ -219,65 +212,7 @@ io.on('connection', (socket) => {
 }
    */
   //Accept Offer request
-  socket.on('acceptOfferRequest', (data) => {
-    // console.log('message---->',data)
-    if (data.id && data.messageId) {
-      let { id, messageId } = data
-      Chat.findOneAndUpdate({ _id: new ObjectId(id), "messages._id": new ObjectId(messageId) }, {
-        $set: { "messages.$.offerStatus": "accepted" }
-      }).exec((err, doc) => {
-        if (err) {
-          let response = {
-            message: "Failed",
-            data: err
-          }
-          io.emit('offerRequestAccepted', response)
-        }
-        else {
-          Chat.findById(id).populate([
-            {
-              path: "seller",
-              model: "users"
-            },
-            {
-              path: "buyer",
-              model: "users"
-            },
-            {
-              path: "listing",
-              model: "listings"
-            },
-            {
-              path: "messages.purchaseOffer",
-              models: "offers"
-            }
-          ]).exec((er, chat) => {
-            if (er) {
-              let response = {
-                message: "Failed",
-                data: er
-              }
-              io.emit('offerRequestAccepted', response)
-            } else {
-              let response = {
-                message: "Success",
-                data: chat
-              }
 
-              io.emit('offerRequestAccepted', response)
-            }
-          })
-        }
-      })
-    }
-    else {
-      let response = {
-        data: "Message details are required",
-        message: "Failed"
-      }
-      io.emit('offerRequestAccepted', response)
-    }
-  })
  
 });
 
