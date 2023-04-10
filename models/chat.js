@@ -43,7 +43,7 @@ const chatSchema = mongoose.Schema({
     lastMessage:{
         type:Date
     },
-    message : [MessageSchema],
+    messages : [MessageSchema],
     request : {
         type : Boolean,
         default : false
