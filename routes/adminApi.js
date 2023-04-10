@@ -27,7 +27,7 @@ app.post('/login' , async (req , res) =>{
         try {
             const doc = await Admin.findOne({email:data.email , password:data.password}).exec()
             if(doc !== null){
-
+                return res.json(handleSuccess(doc));
             }else{
                 return res.json(handleErr("No User"));
             }
@@ -45,7 +45,11 @@ app.post('/registerAdmin' , async (req , res) =>{
         try {
             let data = req.body;
             const doc = await Admin.create(data).exec()
-            return res.json(handleSuccess(doc));
+            if(doc !== undefined){
+                return res.json(handleSuccess(doc))
+            }else{
+                return res.json(handleErr("No User Found"));
+            }
         } catch (error) {
             return res.json(handleErr(error));
         }
