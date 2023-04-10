@@ -58,4 +58,15 @@ app.post('/registerAdmin' , async (req , res) =>{
     }
 })
 
+//get all profiles
+app.get('/getAllProfiles' , async (req , res) =>{
+    
+    try {
+        const doc = await User.find({}).exec();
+        return res.json(handleSuccess(doc));
+    } catch (error) {
+        return res.json(handleErr(error));
+    }
+})
+
 module.exports = app;
