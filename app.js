@@ -186,15 +186,14 @@ io.on('connection', (socket) => {
               message: "Failed",
               data: err
             }
-            socket.emit('messageSent', response)
+            io.emit('messageSent', response)
           }
           else {
             let response = {
               message: "Success",
               data: chat
             }
-            console.log(response);
-            socket.emit('messageSent', response)
+            io.emit('messageSent', response)
           }
         })
     }
@@ -203,7 +202,7 @@ io.on('connection', (socket) => {
         data: "Message details are required",
         message: "Failed"
       }
-      socket.emit('messageSent', response)
+      io.emit('messageSent', response)
     }
   })
   /**
