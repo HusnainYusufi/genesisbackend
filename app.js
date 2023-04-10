@@ -18,7 +18,7 @@ const UserApi = require('./routes/userApi.js');
 const CommunityApi = require('./routes/communityApi');
 const PreferenceApi = require('./routes/preferenceApi');
 const ChatApi = require('./routes/chatApi.js');
-const Chat = require('./models/chat.js');
+const Chat = require('./models/chat');
 const AdminApi = require('./routes/adminApi.js');
 
 connectdb(DATABASE_URL);
@@ -112,7 +112,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('newMessage', (data) => {
-    console.log('message---->', data)
+    console.log(data)
     if (data.id && data.messageType !== undefined && data.messageSender !== undefined && data.sender !== undefined) {
       let { id, messageType, messageSender, sender } = data
       let message = {}
@@ -123,7 +123,6 @@ io.on('connection', (socket) => {
             messageType,
             messageSender,
             sender
-
           }
         }
         else {
