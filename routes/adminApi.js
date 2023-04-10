@@ -25,8 +25,12 @@ app.post('/login' , async (req , res) =>{
     if(req.body.email !== undefined && req.body.password !== undefined){
         let data = req.body;
         try {
-            const doc = await Admin.find({email:email , password:password}).exec()
-            return res.json(handleSuccess(doc));
+            const doc = await Admin.findOne({email:data.email , password:data.password}).exec()
+            if(doc !== null){
+
+            }else{
+                return res.json(handleErr("No User"));
+            }
         } catch (error) {
             return res.json(handleErr(error));   
         }
@@ -34,3 +38,5 @@ app.post('/login' , async (req , res) =>{
         return res.json(handleErr("All Fields are required"));
     }
 })
+
+module.exports = app;

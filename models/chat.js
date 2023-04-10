@@ -5,6 +5,13 @@ const MessageSchema = mongoose.Schema({
         type : Date,
         default : Date.now()
     },
+    text:{
+        type:String
+    },
+    isRead:{
+        type:Boolean,
+        default:false
+    },
     messageType:{           //0:text,1:file, 2: Offer
         type:Number,
         default:0,

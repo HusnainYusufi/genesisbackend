@@ -19,6 +19,7 @@ const CommunityApi = require('./routes/communityApi');
 const PreferenceApi = require('./routes/preferenceApi');
 const ChatApi = require('./routes/chatApi.js');
 const Chat = require('./models/chat.js');
+const AdminApi = require('./routes/adminApi.js');
 
 connectdb(DATABASE_URL);
 app.use(cors());
@@ -95,6 +96,7 @@ app.use('/user' , UserApi);
 app.use('/community' , CommunityApi);
 app.use('/preference' , PreferenceApi);
 app.use('/chat' , ChatApi);
+app.use('/admin' , AdminApi);
 
 io.engine.on("connection_error", (err) => {
   console.log(err);
@@ -111,7 +113,7 @@ io.on('connection', (socket) => {
 
   socket.on('newMessage', (data) => {
     console.log('message---->', data)
-    if (data.id && data.messageType !== undefined && data.messageSender !== undefined && data.sender) {
+    if (data.id && data.messageType !== undefined && data.messageSender !== undefined && data.sender !== undefined) {
       let { id, messageType, messageSender, sender } = data
       let message = {}
       if (messageType === 0) {
