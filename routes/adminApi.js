@@ -43,9 +43,11 @@ app.post('/login' , async (req , res) =>{
 app.post('/registerAdmin' , async (req , res) =>{
     if(req.body.username !== undefined && req.body.email !== undefined && req.body.password !== undefined){
         try {
-            const doc = await Admin.insertOne
+            let data = req.body;
+            const doc = await Admin.insertOne(data).exec()
+            return res.json(handleSuccess(doc));
         } catch (error) {
-            
+            return res.json(handleErr(error));
         }
     }else{
         return res.json(handleErr("All Fields are required"));
