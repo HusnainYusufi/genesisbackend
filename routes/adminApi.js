@@ -44,7 +44,7 @@ app.post('/registerAdmin' , async (req , res) =>{
     if(req.body.username !== undefined && req.body.email !== undefined && req.body.password !== undefined){
         try {
             let data = req.body;
-            const doc = await Admin.insertOne(data).exec()
+            const doc = await Admin.create(data).exec()
             return res.json(handleSuccess(doc));
         } catch (error) {
             return res.json(handleErr(error));

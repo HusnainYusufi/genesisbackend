@@ -170,7 +170,17 @@ io.on('connection', (socket) => {
         }
       }
       Chat.findByIdAndUpdate(id, { $push: { messages: message }, lastMessage: new Date() }, { new: true })
-      .exec((err, chat) => {
+        .populate([
+          {
+            path: "sender",
+            model: "users"
+          },
+          {
+            path: "receiver",
+            model: "users"
+          }
+          
+        ]).exec((err, chat) => {
           if (err) {
             let response = {
               message: "Failed",
@@ -183,6 +193,7 @@ io.on('connection', (socket) => {
               message: "Success",
               data: chat
             }
+            console.log(response);
             io.emit('messageSent', response)
           }
         })
