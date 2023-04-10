@@ -284,170 +284,170 @@ app.get('/profile:id' , async (req ,  res) =>{
 });
 
 
-// app.post('/getUsers:page' ,  (req , res) =>{
-//     const perPage = 20;
-//     const page = req.params.page || 1;
+app.post('/getUsers:page' ,  (req , res) =>{
+    const perPage = 20;
+    const page = req.params.page || 1;
     
-//     if(req.body.uid !== undefined){
-//         let {uid} = req.body;
-//         User.find({uid:req.body.uid})
-//         .exec((err , doc) =>{
-//             console.log(doc);
-//             if(err){
-//                 return res.json(handleErr(err))
-//             }else{
-//                 if(doc !== undefined){
+    if(req.body.uid !== undefined){
+        let {uid} = req.body;
+        User.find({uid:req.body.uid})
+        .exec((err , doc) =>{
+            console.log(doc);
+            if(err){
+                return res.json(handleErr(err))
+            }else{
+                if(doc !== undefined){
                     
-//                     let data = {}
-//                     if(doc.gender === 'Male'){
-//                         data.gender = 'Female'
-//                     }else{
-//                         data.gender = 'Male'
-//                     }
-//                     Preference.find({uid:doc._id})
-//                     .exec((err2 , pref) =>{
-//                         if(err){
-//                             return res.json(handleErr(err))
-//                         }else{
-//                             if(doc !== undefined){
-//                                 Community.find({uid:doc._id})
-//                                 .exec((err3 , comm) =>{
-//                                     if(err3){
-//                                         return res.json(handleErr(err3))
-//                                     }else{
-//                                         data.preference = pref;
-//                                         data.Community = comm;
+                    let data = {}
+                    if(doc.gender === 'Male'){
+                        data.gender = 'Female'
+                    }else{
+                        data.gender = 'Male'
+                    }
+                    Preference.find({uid:doc._id})
+                    .exec((err2 , pref) =>{
+                        if(err){
+                            return res.json(handleErr(err))
+                        }else{
+                            if(doc !== undefined){
+                                Community.find({uid:doc._id})
+                                .exec((err3 , comm) =>{
+                                    if(err3){
+                                        return res.json(handleErr(err3))
+                                    }else{
+                                        data.preference = pref;
+                                        data.Community = comm;
                                         
-//                                         Preference.find({
-//                                             $or : [
-//                                                 {
-//                                                     startage : { $gte: data.preference[0].startage },
-//                                                     endAge : { $lte: data.preference[0].endAge },
-//                                                     preferedMartialStatus : data.preference[0].preferedMartialStatus,
-//                                                     preferedReligion : data.preference[0].preferedReligion,
-//                                                     preferedCommunity : data.preference[0].preferedCommunity,
-//                                                     preferedMotherTongue : data.preference[0].preferedMotherTongue
+                                        Preference.find({
+                                            $or : [
+                                                {
+                                                    startage : { $gte: data.preference[0].startage },
+                                                    endAge : { $lte: data.preference[0].endAge },
+                                                    preferedMartialStatus : data.preference[0].preferedMartialStatus,
+                                                    preferedReligion : data.preference[0].preferedReligion,
+                                                    preferedCommunity : data.preference[0].preferedCommunity,
+                                                    preferedMotherTongue : data.preference[0].preferedMotherTongue
 
-//                                                 }
-//                                             ]
-//                                         })
-//                                         .skip((perPage * page) - perPage)
-//                                         .limit(perPage)
-//                                         .populate([
-//                                             {
-//                                                 "path" : "uid",
-//                                                 "model" : "users"
-//                                             }
-//                                         ])
-//                                         .exec((err5 , doc2) =>{
-//                                             if(err5){
-//                                                 return res.json(handleErr(err5))
-//                                             }else{
-//                                                 if(doc2 !== undefined){
-//                                                     const communityFilters = data.Community.map(c => ({
-//                                                         religion: c.religion,
-//                                                         communityType: c.communityType,
-//                                                         motherTounge: c.motherTounge
-//                                                       }));
+                                                }
+                                            ]
+                                        })
+                                        .skip((perPage * page) - perPage)
+                                        .limit(perPage)
+                                        .populate([
+                                            {
+                                                "path" : "uid",
+                                                "model" : "users"
+                                            }
+                                        ])
+                                        .exec((err5 , doc2) =>{
+                                            if(err5){
+                                                return res.json(handleErr(err5))
+                                            }else{
+                                                if(doc2 !== undefined){
+                                                    const communityFilters = data.Community.map(c => ({
+                                                        religion: c.religion,
+                                                        communityType: c.communityType,
+                                                        motherTounge: c.motherTounge
+                                                      }));
 
-//                                                       const communityQuery = { $or: communityFilters };
+                                                      const communityQuery = { $or: communityFilters };
 
-//                                                       Community.find(communityQuery)
-//                                                       .skip((perPage * page) - perPage)
-//                                                       .limit(perPage)
-//                                                       .populate([
-//                                                         {
-//                                                             "path" : "uid",
-//                                                             "model" : "users"
-//                                                         }
-//                                                       ])
-//                                                       .exec((err6 , doc3) =>{
-//                                                         if(err6){
-//                                                             return res.json(handleErr(err6))
-//                                                         }else{
-//                                                             if(doc3 !== undefined){
-//                                                                 User.find({gender : data.gender})
-//                                                                 .exec((err7 , doc4) =>{
-//                                                                     if(err7){
-//                                                                         return res.json(handleErr(err7))
-//                                                                     }else{
+                                                      Community.find(communityQuery)
+                                                      .skip((perPage * page) - perPage)
+                                                      .limit(perPage)
+                                                      .populate([
+                                                        {
+                                                            "path" : "uid",
+                                                            "model" : "users"
+                                                        }
+                                                      ])
+                                                      .exec((err6 , doc3) =>{
+                                                        if(err6){
+                                                            return res.json(handleErr(err6))
+                                                        }else{
+                                                            if(doc3 !== undefined){
+                                                                User.find({gender : data.gender})
+                                                                .exec((err7 , doc4) =>{
+                                                                    if(err7){
+                                                                        return res.json(handleErr(err7))
+                                                                    }else{
                                                                         
-//                                                                         Preference.countDocuments({
-//                                                                             $or : [
-//                                                                                 {
-//                                                                                     startage : { $gte: data.preference[0].startage },
-//                                                                                     endAge : { $lte: data.preference[0].endAge },
-//                                                                                     preferedMartialStatus : data.preference[0].preferedMartialStatus,
-//                                                                                     preferedReligion : data.preference[0].preferedReligion,
-//                                                                                     preferedCommunity : data.preference[0].preferedCommunity,
-//                                                                                     preferedMotherTongue : data.preference[0].preferedMotherTongue
+                                                                        Preference.countDocuments({
+                                                                            $or : [
+                                                                                {
+                                                                                    startage : { $gte: data.preference[0].startage },
+                                                                                    endAge : { $lte: data.preference[0].endAge },
+                                                                                    preferedMartialStatus : data.preference[0].preferedMartialStatus,
+                                                                                    preferedReligion : data.preference[0].preferedReligion,
+                                                                                    preferedCommunity : data.preference[0].preferedCommunity,
+                                                                                    preferedMotherTongue : data.preference[0].preferedMotherTongue
                                 
-//                                                                                 }
-//                                                                             ]
-//                                                                         })
-//                                                                         .exec((preferr , prefcount) =>{
-//                                                                             if(preferr){
-//                                                                                 return res.json(handleErr(preferr))
-//                                                                             }else{
-//                                                                                 if(prefcount !== undefined){
-//                                                                                     const communityFilters = data.community.map(c => ({
-//                                                                                         religion: c.religion,
-//                                                                                         communityType: c.communityType,
-//                                                                                         motherTounge: c.motherTounge
-//                                                                                       }));
+                                                                                }
+                                                                            ]
+                                                                        })
+                                                                        .exec((preferr , prefcount) =>{
+                                                                            if(preferr){
+                                                                                return res.json(handleErr(preferr))
+                                                                            }else{
+                                                                                if(prefcount !== undefined){
+                                                                                    const communityFilters = data.community.map(c => ({
+                                                                                        religion: c.religion,
+                                                                                        communityType: c.communityType,
+                                                                                        motherTounge: c.motherTounge
+                                                                                      }));
                                 
-//                                                                                       const communityQuery = { $or: communityFilters };
+                                                                                      const communityQuery = { $or: communityFilters };
                                 
-//                                                                                       Community.countDocuments(communityQuery)
-//                                                                                       .exec((commerr , commcount) =>{
-//                                                                                         if(commerr){
-//                                                                                             return res.json(handleErr(commerr))
-//                                                                                         }else{
-//                                                                                             let filteredPref = doc2.filter((item) => item.uid.gender !== data.gender)
-//                                                                                             let filtercommunity = doc3.filter((item) => item.uid.gender !== data.gender);
+                                                                                      Community.countDocuments(communityQuery)
+                                                                                      .exec((commerr , commcount) =>{
+                                                                                        if(commerr){
+                                                                                            return res.json(handleErr(commerr))
+                                                                                        }else{
+                                                                                            let filteredPref = doc2.filter((item) => item.uid.gender !== data.gender)
+                                                                                            let filtercommunity = doc3.filter((item) => item.uid.gender !== data.gender);
                                                                                             
-//                                                                                             let response = {
-//                                                                                                 filtercommunity : filtercommunity,
-//                                                                                                 filteredPref : filteredPref,
-//                                                                                                 current: page,
-//                                                                                                 pagesPref: Math.ceil(prefcount / perPage),
-//                                                                                                 pagesComm: Math.ceil(commcount / perPage),
-//                                                                                                 total: commcount+prefcount,
-//                                                                                                 preftotal : prefcount,
-//                                                                                                 commtotal : commcount,
-//                                                                                            }    
-//                                                                                            return res.json(handleSuccess(response));
-//                                                                                         }
-//                                                                                       })
-//                                                                                 }
-//                                                                             }
-//                                                                         })
-//                                                                     }
-//                                                                 })
-//                                                             }
-//                                                         }
-//                                                     })
-//                                                 }
-//                                             }
-//                                         })
-//                                     }
-//                                 })
-//                             }
-//                         }
-//                     })         
-//                 }else{
-//                     return res.json(handleErr("No Data Found"))
-//                 }
-//             }
-//         })
-//         try {     
-//         } catch (error) {
-//             return res.json(handleErr(error));
-//         }
-//     }else{
-//         return res.json(handleErr("UID is required"));
-//     }
-// });
+                                                                                            let response = {
+                                                                                                filtercommunity : filtercommunity,
+                                                                                                filteredPref : filteredPref,
+                                                                                                current: page,
+                                                                                                pagesPref: Math.ceil(prefcount / perPage),
+                                                                                                pagesComm: Math.ceil(commcount / perPage),
+                                                                                                total: commcount+prefcount,
+                                                                                                preftotal : prefcount,
+                                                                                                commtotal : commcount,
+                                                                                           }    
+                                                                                           return res.json(handleSuccess(response));
+                                                                                        }
+                                                                                      })
+                                                                                }
+                                                                            }
+                                                                        })
+                                                                    }
+                                                                })
+                                                            }
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    })         
+                }else{
+                    return res.json(handleErr("No Data Found"))
+                }
+            }
+        })
+        try {     
+        } catch (error) {
+            return res.json(handleErr(error));
+        }
+    }else{
+        return res.json(handleErr("UID is required"));
+    }
+});
 
 //getprefered profiles
 app.post('/getPreferedProfiles:page' , async (req , res) =>{
