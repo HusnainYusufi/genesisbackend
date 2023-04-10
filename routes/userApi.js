@@ -565,13 +565,13 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                                         return res.json("Count is not available community");
                                                      }
                                                 } catch (error) {
-                                                    return res.json(handleSuccess(doc5));
+                                                    return res.json(handleErr(error));
                                                 }
                                             }else{
                                                 return res.json(handleErr("Count is not defined"));
                                             }
                                         } catch (error) {
-                                            return res.json(handleSuccess(doc4));
+                                            return res.json(handleErr(error));
                                         }
                                       }else{
                                         return res.json(handleErr("Community Not Found"));
@@ -586,11 +586,8 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                                 return res.json(handleErr(error))
                             }
                         }else{
-                            let response1 = {
-                                profile : doc,
-                                preference : doc2
-                            }
-                            return res.json(handleSuccess(response1));
+                           
+                            return res.json(handleErr("NO data Found"));
                         }
                         
                        } catch (error) {
