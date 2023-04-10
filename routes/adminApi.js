@@ -63,9 +63,24 @@ app.get('/getAllProfiles' , async (req , res) =>{
     
     try {
         const doc = await User.find({}).exec();
-        return res.json(handleSuccess(doc[0]));
+        return res.json(handleSuccess(doc));
     } catch (error) {
         return res.json(handleErr(error));
+    }
+})
+
+//get single profile
+app.get('/getSingleProfile:id' , async (req , res) =>{
+    const pid = req.params.id;
+    if(pid){
+        try {
+            const doc = await User.findOne({_id:pid}).exec();
+            return res.json(handleSuccess(doc));
+        } catch (error) {
+            return res.json(handleErr(error));
+        }
+    }else{
+        return res.json(handleErr("PID is required"));
     }
 })
 
