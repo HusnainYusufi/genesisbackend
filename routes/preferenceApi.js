@@ -14,9 +14,6 @@ const uid = require('uid')
 const upload = require('../HandleFunction/UploadFile')
 const uploadMult = require('../HandleFunction/UploadMulti')
 const User = require('../models/user');
-const mocdata = require('../new.json');
-const prefmoc = require('../pref.json');
-const communitymoc = require('../community.json');
 const Community = require('../models/community');
 const Preference = require('../models/preference');
 const mongoose = require("mongoose");
@@ -25,7 +22,7 @@ const ObjectId = mongoose.mongo.ObjectId
 
 app.post('/addPreference' , (req , res) =>{
     if(req.body.uid !== undefined ){
-        let data = req.body;
+        const data = req.body;
         Preference.create(data , (err , doc) =>{
             if(err){
                 return res.json(handleErr(err))
