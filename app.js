@@ -166,7 +166,7 @@ io.on('connection', (socket) => {
             data: "Purchase offer is required",
             message: "Failed"
           }
-          return socket.emit('messageSent', response)
+          return io.emit('messageSent', response)
         }
       }
       Chat.findByIdAndUpdate(id, { $push: { messages: message }, lastMessage: new Date() }, { new: true })
@@ -186,14 +186,14 @@ io.on('connection', (socket) => {
               message: "Failed",
               data: err
             }
-            socket.emit('messageSent', response)
+            io.emit('messageSent', response)
           }
           else {
             let response = {
               message: "Success",
               data: chat
             }
-            socket.emit('messageSent', response)
+            io.emit('messageSent', response)
           }
         })
     }
@@ -202,7 +202,7 @@ io.on('connection', (socket) => {
         data: "Message details are required",
         message: "Failed"
       }
-      socket.emit('messageSent', response)
+      io.emit('messageSent', response)
     }
   })
   /**

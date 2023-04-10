@@ -213,7 +213,7 @@ app.post('/profileImage' , (req , res) =>{
 //search by username
 app.post('/searchUser' , (req , res) =>{
     if(req.body.username){
-        User.find({username : {$regex : req.body.username + '.*'}})
+        User.find({ username: { $regex: new RegExp(req.body.username, 'i') } })
         .exec((err , doc) =>{
             if(err){
                 return res.json(handleErr(err))
