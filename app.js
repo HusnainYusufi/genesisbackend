@@ -22,14 +22,16 @@ const Chat = require('./models/chat');
 const AdminApi = require('./routes/adminApi.js');
 
 connectdb(DATABASE_URL);
-const corsOptions ={
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "optionsSuccessStatus": 204
-}
-app.use(cors(corsOptions)) 
-// app.use(cors());
+// const corsOptions ={
+//   "origin": "*",
+//   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   "preflightContinue": false,
+//   "optionsSuccessStatus": 204
+// }
+//app.use(cors(corsOptions)) 
+app.use(cors({
+  origin: 'https://metrimony.tech-east.com.pk/'
+}));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/uploads/")));
