@@ -22,13 +22,6 @@ const Admin = require('../models/admin');
 const cors = require("cors");
 
 
-app.use(cors());
-const corsOptions = {
-    origin: 'https://metrimony.tech-east.com.pk',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  };
-
 //login admin
 app.post('/login' , async (req , res) =>{
     if(req.body.email !== undefined && req.body.password !== undefined){
@@ -68,7 +61,7 @@ app.post('/registerAdmin' , async (req , res) =>{
 })
 
 //get all profiles
-app.get('/getAllProfiles' ,cors(corsOptions) , async (req , res) =>{
+app.get('/getAllProfiles' , async (req , res) =>{
     
     try {
         const doc = await User.find({}).exec();
@@ -79,7 +72,7 @@ app.get('/getAllProfiles' ,cors(corsOptions) , async (req , res) =>{
 })
 
 //get single profile
-app.get('/getSingleProfile:id' , cors(corsOptions) ,async (req , res) =>{
+app.get('/getSingleProfile:id' , async (req , res) =>{
     const pid = req.params.id;
     if(pid){
         try {
@@ -95,7 +88,7 @@ app.get('/getSingleProfile:id' , cors(corsOptions) ,async (req , res) =>{
 
 
 //approving profile
-app.post('/updateStatus:id' , cors(corsOptions) ,async (req , res) =>{
+app.post('/updateStatus:id' , async (req , res) =>{
     const pid = req.params.id;
     if(pid !== undefined){
         try {
