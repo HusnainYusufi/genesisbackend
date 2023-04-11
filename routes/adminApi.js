@@ -59,7 +59,7 @@ app.post('/registerAdmin' , async (req , res) =>{
 })
 
 //get all profiles
-app.get('/getAllProfiles' , async (req , res) =>{
+app.post('/getAllProfiles' , async (req , res) =>{
     
     try {
         const doc = await User.find({}).exec();
