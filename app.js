@@ -7,7 +7,7 @@ const fs = require("fs");
 const server = require("http").createServer(app);
 const DATABASE_URL ="mongodb://nJijaQgenesiszoaq:keDJh4kgoURgenesisOp3mVbbt@158.220.104.228:24812/genesismatrimony";
 //const DATABASE_URL = "mongodb://localhost:27017";
-const cors = require("cors");
+const cors = require('cors')
 const connectdb = require("./db/connect.js");
 const jwt = require("jsonwebtoken");
 const handleSuccess = require("./HandleFunction/handleSuccess.js");
@@ -20,24 +20,6 @@ const PreferenceApi = require('./routes/preferenceApi');
 const ChatApi = require('./routes/chatApi.js');
 const Chat = require('./models/chat');
 const AdminApi = require('./routes/adminApi.js');
-const corsOptions = {
-  origin: 'https://metrimony.tech-east.com.pk'
-};
-connectdb(DATABASE_URL);
-
-app.use(cors(corsOptions));
-
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "/uploads/")));
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 
 const io = require('socket.io')(server, {
   path: '/custom',
@@ -77,6 +59,24 @@ const io = require('socket.io')(server, {
   forceNode: false,
   localAddress: null,
 });
+
+
+const corsOptions = {
+  origin: 'https://metrimony.tech-east.com.pk'
+};
+connectdb(DATABASE_URL);
+
+app.use(cors())
+
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "/uploads/")));
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 //Get File
 app.get("/api/getFile:path", (req, res) => {
