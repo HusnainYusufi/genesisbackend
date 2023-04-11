@@ -84,4 +84,20 @@ app.get('/getSingleProfile:id' , async (req , res) =>{
     }
 })
 
+
+//approving profile
+app.post('/updateStatus:id' , async (req , res) =>{
+    const pid = req.params.id;
+    if(pid !== undefined){
+        try {
+            let data = req.body;
+            const doc = await User.findOneAndUpdate({_id:pid} , data , {new:true}).exec()
+            return res.json(handleSuccess(doc));
+        } catch (error) {
+            return res.json(handleErr(error));
+        }
+    }else{  
+        return res.json(handleErr("Profile ID is required"));
+    }
+})
 module.exports = app;
