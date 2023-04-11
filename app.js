@@ -23,6 +23,11 @@ const AdminApi = require('./routes/adminApi.js');
 
 connectdb(DATABASE_URL);
 app.use(cors());
+const corsOptions = {
+  origin: 'https://metrimony.tech-east.com.pk',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/uploads/")));
@@ -216,7 +221,7 @@ io.on('connection', (socket) => {
  
 });
 
-app.get("/", (req, res) => {
+app.get("/", cors(corsOptions),(req, res) => {
     res.send("<h1>hello from Genesis Backend</h1>");
   });
   
