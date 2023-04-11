@@ -477,7 +477,7 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
                             data.community = doc3;
                             try {
                                 
-                            const doc4 = await  Preference.find({
+                            const doc4 = await Preference.find({
                                 $or : [
                                     {
                                         startage : { $gte: data.preference[0].startage },
