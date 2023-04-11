@@ -613,7 +613,60 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
 
 })
 
+//get profiles
+app.post('/getProfiles:page' , async (req , res) =>{
+    const perPage = 15;
+    const page = req.params.page || 1;
 
+    if(req.body.uid !== undefined){
+        try {
+            const doc = await User.findOne({uid:req.body.uid}).exec()
+            if(doc !== null){
+                let data = {}
+                    if(doc.gender === 'Male'){
+                        data.gender = 'Female'
+                    }else{
+                        data.gender = 'Male'
+                    }
+
+                    try {
+                        const doc2 = await User.find({gender:data.gender})
+                        .skip((perPage * page) - perPage)
+                        .limit(perPage)
+                        .exec()
+                        if(doc2 !== null){
+                            try {
+                                const doc3 = await User.countDocuments({gender:data.gender}).exec()
+                                if(doc3 !== null){
+                                    let response = {
+                                        profiles : doc2,
+                                        current: page,
+                                        pages: Math.ceil(doc3 / perPage),
+                                        total: doc3,
+                                    }
+                                    return res.json(handleSuccess(response));
+                                }else{
+                                    return res.json(handleErr("Count not found"));
+                                }
+                            } catch (error) {
+                                return res.json(handleErr(error))
+                            }
+                        }else{
+                            return res.json(handleErr("Gender data is not available"));
+                        }
+                    } catch (error) {
+                        return res.json(handleErr(error))
+                    }
+            }else{
+                return res.json(handleErr("User Doc is emptyu"))
+            }
+        } catch (error) {
+            return res.json(handleErr(error));
+        }
+    }else{
+        return res.json(handleErr("UID is not defined"));
+    }
+})
 
 //prefered 
 // app.post('/getPreferedData:page' , async)
