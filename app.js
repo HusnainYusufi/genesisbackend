@@ -20,14 +20,13 @@ const PreferenceApi = require('./routes/preferenceApi');
 const ChatApi = require('./routes/chatApi.js');
 const Chat = require('./models/chat');
 const AdminApi = require('./routes/adminApi.js');
-
-connectdb(DATABASE_URL);
-app.use(cors());
 const corsOptions = {
-  origin: 'https://metrimony.tech-east.com.pk',
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: 'https://metrimony.tech-east.com.pk'
 };
+connectdb(DATABASE_URL);
+
+app.use(cors(corsOptions));
+
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/uploads/")));
