@@ -5,7 +5,10 @@ const storage = multer.diskStorage({
         callback(null, './uploads');
     },
     filename: function (req, file, callback) {
-        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        const ext = path.extname(file.originalname);
+        const newExt = '.webp';
+        const newFilename = file.fieldname + '-' + Date.now() + newExt;
+        callback(null, newFilename);
     }
 });
 const uploadMult = multer({ storage: storage }).array('files', 30);
