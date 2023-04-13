@@ -29,9 +29,21 @@ app.post('/getChat', (req, res) => {
             sender,
             receiver
         }
-        Chat.findOne({
-            sender,
-            receiver,
+        Chat.find({
+            $or : [
+                {
+                    sender : sender
+                },
+                {
+                    receiver : sender
+                },
+                {
+                    receiver : receiver,
+                },
+                {
+                    sender : receiver
+                }
+            ]
         }).populate('sender receiver').exec((err, doc) => {
             if (err) {
                 console.log(err);
