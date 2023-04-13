@@ -29,7 +29,18 @@ app.post('/getChat', (req, res) => {
             sender,
             receiver
         }
-        Chat.find({ $or: [{ sender: sender }, {receiver : receiver} , {sender : receiver} , {receiver : sender}] }).populate('sender receiver').exec((err, doc) => {
+        Chat.findOne({ $or: [{ sender: sender }, {receiver : receiver} , {sender : receiver} , {receiver : sender}] })
+        .populate([
+            {
+                "path" : "sender",
+                "model" : "users"
+            },
+            {
+                "path" : "receiver",
+                "model" : "users"
+            }
+        ])
+        .exec((err, doc) => {
             if (err) {
                 console.log(err);
             }else {
