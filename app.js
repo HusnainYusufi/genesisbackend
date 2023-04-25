@@ -79,22 +79,44 @@ app.use(function (req, res, next) {
 
 
 //Get File
-app.get("/api/getFile:path", (req, res) => {
-  try {
-    var file = __dirname + "/uploads/" + req.params.path;
+// app.get("/api/getFile:path", (req, res) => {
+//   try {
+//     var file = __dirname + "/uploads/" + req.params.path;
 
-    var filename = path.basename(file);
-    var mimetype = mime.getType(file);
-    //console.log('file->', file)
-    res.setHeader("Content-disposition", "attachment; filename=" + filename);
-    res.setHeader("Content-type", mimetype);
+//     var filename = path.basename(file);
+//     var mimetype = mime.getType(file);
+//     //console.log('file->', file)
+//     res.setHeader("Content-disposition", "attachment; filename=" + filename);
+//     res.setHeader("Content-type", mimetype);
 
-    var filestream = fs.createReadStream(file);
-    filestream.pipe(res);
-  } catch (error) {
-    return res.json(handleErr(error));
+//     var filestream = fs.createReadStream(file);
+//     filestream.pipe(res);
+//   } catch (error) {
+//     return res.json(handleErr(error));
+//   }
+// });
+
+app.get('/api/getFile:path', (req, res) => {
+  if (req.params.path !== undefined && req.params.path !== "undefined" && req.params.path !== null) {
+    try {
+      var file = __dirname + '/uploads/' + req.params.path;
+
+      var filename = path.basename(file);
+      var mimetype = mime.getType(file);
+      // console.log('file->', file)
+      res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+      res.setHeader('Content-type', mimetype);
+
+      var filestream = fs.createReadStream(file);
+      filestream.pipe(res);
+    } catch (error) {
+      return res.json(handleErr(error))
+    }
   }
-});
+  else {
+    return res.json(handleErr('Image path is required'))
+  }
+})
 
 app.use('/user' , UserApi);
 app.use('/community' , CommunityApi);
