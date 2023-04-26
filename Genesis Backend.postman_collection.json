@@ -3,7 +3,8 @@
 		"_postman_id": "f38d757f-3f7c-4ac4-8b8c-0cd05a3b3046",
 		"name": "Genesis Backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "12222084"
+		"_exporter_id": "12222084",
+		"_collection_link": "https://planetary-star-331194.postman.co/workspace/New-Team-Workspace~237b60e1-d03c-46f4-9fd8-c5d81c34523a/collection/12222084-f38d757f-3f7c-4ac4-8b8c-0cd05a3b3046?action=share&creator=12222084&source=collection_link"
 	},
 	"item": [
 		{
@@ -16,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"uid\" : \"\",\r\n    \"username\" : \"\",\r\n    \"email\" : \"\",\r\n    \"defaultImg\" : \"\",\r\n    \"provider\" : \"\",\r\n    \"profileFor\" : \"\",\r\n    \"phone\" : \"\",\r\n    \"country\" : \"\",\r\n    \"state\" : \"\",\r\n    \"city\" : \"\",\r\n    \"marialStatus\" : \"\",\r\n    \"diet\" : \"\",\r\n    \"height\" : \"\",\r\n    \"qualification\" : [\r\n        {\r\n            \"qualificationType\" : \"\",\r\n            \"collegeOne\" : \"\",\r\n            \"collegeTwo\" : \"\"\r\n        }\r\n    ],\r\n    \"employment\" : \"\",\r\n    \"designation\" : \"\",\r\n    \"ownBuisness\" : \"\",\r\n    \"anualIncome\" : \"\",\r\n    \"hobbies\" : [\r\n        {\r\n            \"hobby\" : \"Walking\",\r\n            \"type\" : \"Physical\"\r\n        },\r\n        {\r\n             \"hobby\" : \"Reading\",\r\n            \"type\" : \"Creativity\"\r\n        }\r\n    ],\r\n    \"gender\" : \"\",\r\n    \"bio\" : \"\",\r\n    \"age\" : 25,\r\n    \"longitude\" : \"10.52584\",\r\n\t\"latitude\" : \"10.2564\"\r\n\r\n}",
+							"raw": "{\r\n    \"uid\" : \"HUs123456\",\r\n    \"username\" : \"Husnain\",\r\n    \"email\" : \"hus\",\r\n    \"defaultImg\" : \"demo\",\r\n    \"provider\" : \"demo\",\r\n    \"profileFor\" : \"demo\",\r\n    \"phone\" : \"demo\",\r\n    \"country\" : \"demo\",\r\n    \"state\" : \"demo\",\r\n    \"city\" : \"demo\",\r\n    \"marialStatus\" : \"demo\",\r\n    \"diet\" : \"demo\",\r\n    \"height\" : \"demo\",\r\n    \"qualification\" : [\r\n        {\r\n            \"qualificationType\" : \"demo\",\r\n            \"collegeOne\" : \"demo\",\r\n            \"collegeTwo\" : \"demo\"\r\n        }\r\n    ],\r\n    \"employment\" : \"demo\",\r\n    \"designation\" : \"demo\",\r\n    \"ownBuisness\" : \"demo\",\r\n    \"anualIncome\" : \"demo\",\r\n    \"hobbies\" : [\r\n        {\r\n            \"hobby\" : \"Walking\",\r\n            \"type\" : \"Physical\"\r\n        },\r\n        {\r\n             \"hobby\" : \"Reading\",\r\n            \"type\" : \"Creativity\"\r\n        }\r\n    ],\r\n    \"gender\" : \"\",\r\n    \"bio\" : \"\",\r\n    \"age\" : 25,\r\n    \"longitude\" : \"10.52584\",\r\n\t\"latitude\" : \"10.2564\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,13 +25,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/signUp",
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/user/signUp",
 							"protocol": "https",
 							"host": [
-								"d4dc-158-220-104-228",
-								"eu",
-								"ngrok",
-								"io"
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
 							],
 							"path": [
 								"user",
@@ -47,7 +47,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\" : \"\",\r\n    \"email\" : \"\",\r\n    \"defaultImg\" : \"\",\r\n    \"provider\" : \"\",\r\n    \"profileFor\" : \"\",\r\n    \"phone\" : \"\",\r\n    \"country\" : \"\",\r\n    \"state\" : \"\",\r\n    \"city\" : \"\",\r\n    \"marialStatus\" : \"\",\r\n    \"diet\" : \"\",\r\n    \"height\" : \"\",\r\n    \"qualification\" : [\r\n        {\r\n            \"qualificationType\" : \"\",\r\n            \"collegeOne\" : \"\",\r\n            \"collegeTwo\" : \"\"\r\n        }\r\n    ],\r\n    \"employment\" : \"\",\r\n    \"designation\" : \"\",\r\n    \"ownBuisness\" : \"\",\r\n    \"anualIncome\" : \"\",\r\n    \"hobbies\" : [\r\n        {\r\n            \"hobby\" : \"Walking\",\r\n            \"type\" : \"Physical\"\r\n        },\r\n        {\r\n             \"hobby\" : \"Reading\",\r\n            \"type\" : \"Creativity\"\r\n        }\r\n    ],\r\n    \"gender\" : \"\",\r\n    \"bio\" : \"\",\r\n    \"age\" : 25,\r\n    \"longitude\" : \"10.52584\",\r\n\t\"latitude\" : \"10.2564\",\r\n    \"community\" : [\r\n        {\r\n            \"religion\" : \"\",\r\n            \"communityType\" : \"\",\r\n            \"motherTounge\" : \"\"\r\n        }\r\n    ],\r\n    \"preference\" : [\r\n        {\r\n            \"startage\" : 10,\r\n            \"endAge\" : 30,\r\n            \"startHeight\" : \"\",\r\n            \"endHeigh\" : \"\",\r\n            \"preferedMartialStatus\" : \"\",\r\n            \"preferedReligion\" : \"\",\r\n            \"preferedCommunity\" : \"\",\r\n            \"preferedMotherTongue\" : \"\"\r\n        }\r\n    ]\r\n\r\n}",
+							"raw": "{\r\n    \r\n    \"community\" : [\r\n        {\r\n            \"religion\" : \"Christanity\",\r\n            \"communityType\" : \"Catholic\",\r\n            \"motherTounge\" : \"English\"\r\n        }\r\n    ],\r\n    \"preference\" : [\r\n        {\r\n            \"startage\" : 10,\r\n            \"endAge\" : 30,\r\n            \"startHeight\" : \"4'11''\",\r\n            \"endHeigh\" : \"5'11''\",\r\n            \"preferedMartialStatus\" : \"UnMarried\",\r\n            \"preferedReligion\" : \"Christanity\",\r\n            \"preferedCommunity\" : \"Catholic\",\r\n            \"preferedMotherTongue\" : \"English\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -55,7 +55,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/completeProfile37247234872938740923",
+							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/completeProfile1234567890",
 							"protocol": "https",
 							"host": [
 								"d4dc-158-220-104-228",
@@ -65,7 +65,7 @@
 							],
 							"path": [
 								"user",
-								"completeProfile37247234872938740923"
+								"completeProfile1234567890"
 							]
 						}
 					},
@@ -86,7 +86,7 @@
 								},
 								{
 									"key": "uid",
-									"value": "37247234872938740923",
+									"value": "6430e9de47eebc31d90f2b3d",
 									"type": "text"
 								}
 							]
@@ -127,7 +127,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\" : \"H\"\r\n}",
+							"raw": "{\r\n    \"username\" : \"h\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -135,13 +135,12 @@
 							}
 						},
 						"url": {
-							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/searchUser",
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/user/searchUser",
 							"protocol": "https",
 							"host": [
-								"d4dc-158-220-104-228",
-								"eu",
-								"ngrok",
-								"io"
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
 							],
 							"path": [
 								"user",
@@ -152,13 +151,13 @@
 					"response": []
 				},
 				{
-					"name": "myProfile",
+					"name": "deleteImage",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"uid\" : \"zImCueyDGuZgAvSFC38sJGM8gKg1\"\r\n}",
+							"raw": "{\r\n    \"uid\" : \"1234567890\",\r\n    \"imagename\" : \"Default.jpg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -166,7 +165,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/myProfile",
+							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/deleteImage",
 							"protocol": "https",
 							"host": [
 								"d4dc-158-220-104-228",
@@ -176,7 +175,411 @@
 							],
 							"path": [
 								"user",
-								"myProfile"
+								"deleteImage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserStatus",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uid\" : \"HUs123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/user/status",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"user",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profileHUs123456",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/user/profilehnI32978q4Xij4OfkiXCDKB3ZIp2",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"user",
+								"profilehnI32978q4Xij4OfkiXCDKB3ZIp2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profileHUs123456 Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/user/profileG8KD1h0CurZbRnqFb8EzDNCZrBI2",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"user",
+								"profileG8KD1h0CurZbRnqFb8EzDNCZrBI2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPreferedProfiles1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uid\" : \"dummy10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/user/getPreferedProfiles1",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"user",
+								"getPreferedProfiles1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProfiles1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uid\" : \"hnI32978q4Xij4OfkiXCDKB3ZIp2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/user/getProfiles1",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"user",
+								"getProfiles1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "preference",
+			"item": [
+				{
+					"name": "addPreference",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startage\" : 45,\r\n    \"endAge\" : 50,\r\n    \"startHeight\" : \"456213\",\r\n    \"endHeight\" : \"asdsa\",\r\n    \"preferedMartialStatus\" : \"married\",\r\n    \"preferedReligion\" : \"Christianity\",\r\n    \"preferedCommunity\" : \"Catholic\",\r\n    \"preferedMotherTongue\" : \"English\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/preference/addPreference64339fe381eaa12141ae3442",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"preference",
+								"addPreference64339fe381eaa12141ae3442"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "community",
+			"item": [
+				{
+					"name": "addCommunity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"religion\" : \"Christianity\",\r\n    \"communityType\" : \"Catholic\",\r\n    \"motherTounge\" : \"Urdu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/community/addCommunity64346c65377c6a435ff28b08",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"community",
+								"addCommunity64346c65377c6a435ff28b08"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "chat",
+			"item": [
+				{
+					"name": "getChat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receiver\" : \"643640a1052da44864e5c192\",\r\n    \"sender\" : \"6437a7d6af396156a44f02a4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/chat/getChat",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"chat",
+								"getChat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "senderChats",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sender\" : \"64321afc65dfc4742cbcc990\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/chat/senderChats",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"chat",
+								"senderChats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "receiverChats",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receiver\" : \"64321b0465dfc4742cbcc995\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/chat/receiverChats",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"chat",
+								"receiverChats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllMyChats",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\" : \"6437a7d6af396156a44f02a4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/chat/getAllMyChats",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"chat",
+								"getAllMyChats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"hus12345\",\r\n    \"password\" : \"hJe9@FYR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/admin/login",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"admin",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSingleProfile64321ad565dfc4742cbcc989",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/admin/getSingleProfile64321ad565dfc4742cbcc989",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"admin",
+								"getSingleProfile64321ad565dfc4742cbcc989"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllProfiles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/admin/getAllProfiles",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"admin",
+								"getAllProfiles"
 							]
 						}
 					},
