@@ -720,7 +720,7 @@ app.post('/deleteImage' , async (req , res) =>{
         try {
             const doc  = await User.findOneAndUpdate({uid:uid} , {$pull : {userImages:imagename}} , {new:true})
             if(doc !== null){
-                fs.unlink('../uploads/' + imagename , (err) => {
+                fs.unlink('./uploads/' + imagename , (err) => {
                     if (err) {
                         throw err;
                     }
