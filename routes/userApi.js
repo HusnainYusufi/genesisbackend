@@ -719,7 +719,15 @@ app.post('/deleteImage' , async (req , res) =>{
         let{uid , imagename} = req.body;
         try {
             const doc  = await User.findOneAndUpdate({uid:uid} , {$pull : {userImages:imagename}} , {new:true})
-            return res.json(handleSuccess(doc));
+            if(doc !== null){
+                fs.unlink('../uploads/' + imagename , (err) => {
+                    if (err) {
+                        throw err;
+                    }
+                
+                    console.log("Delete File successfully.");
+                });
+            }
         } catch (error) {
             return res.json(handleErr(error));
         }
