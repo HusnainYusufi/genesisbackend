@@ -22,6 +22,28 @@ const Preference = require('../models/preference');
 const mongoose = require("mongoose");
 const ObjectId = mongoose.mongo.ObjectId
 
+
+async function checkUserStatus(req , res , next){
+    if(req.body.uid !== undefined){
+        try {
+            const doc = await User.findOne({uid:req.body.uid})
+            if(doc !== null){
+                if(doc.publish === "Pending"){
+                    return res.json(handleSuccess("Your request is still pending"))
+                }else if(doc.publish === "Rejected"){
+                    return res.json(handleErr("Sorry your profile has been rejected by admins"))
+                }else{
+                    next();
+                }
+            }
+        } catch (error) {
+            return res.json(handleErr(error));
+        }
+    }else{
+        return res.json(handleErr("User ID is required"));
+    }
+}
+
 //bulk upload user
 app.post('/bulkUpload' , (req , res) =>{
     User.create(mocdata , (err , doc) =>{
@@ -32,6 +54,8 @@ app.post('/bulkUpload' , (req , res) =>{
         }
     })
 })
+
+
 
 //getid
 app.get('/getIds' , (req , res) =>{
@@ -158,7 +182,7 @@ app.post('/signUp' , (req , res) =>{
 })
 
 //complete profile
-app.post('/completeProfile:id' , (req , res) =>{
+app.post('/completeProfile:id'  ,(req , res) =>{
     let uid = req.params.id;
     
     if(uid !== undefined){
@@ -182,7 +206,7 @@ app.post('/completeProfile:id' , (req , res) =>{
 });
 
 //upload profile image
-app.post('/profileImage' , (req , res) =>{
+app.post('/profileImage'  ,(req , res) =>{
     uploadMult(req , res , function(err){
         if(err){
             return res.json(handleErr(err))
@@ -248,7 +272,7 @@ app.post('/searchUser' , (req , res) =>{
 //get myprofile
 
 //profile
-app.get('/profile:id' , async (req ,  res) =>{
+app.get('/profile:id'  ,async (req ,  res) =>{
     const profid = req.params.id;
     try {
         const doc1 = await User.find({uid:profid}).exec()
@@ -284,7 +308,7 @@ app.get('/profile:id' , async (req ,  res) =>{
 });
 
 //get profiles
-app.post('/getUsers:page' ,  (req , res) =>{
+app.post('/getUsers:page'  ,(req , res) =>{
     const perPage = 20;
     const page = req.params.page || 1;
     
@@ -453,7 +477,7 @@ app.post('/getUsers:page' ,  (req , res) =>{
 });
 
 //getprefered profiles
-app.post('/getPreferedProfiles:page' , async (req , res) =>{
+app.post('/getPreferedProfiles:page'  , async (req , res) =>{
     const perPage = 20;
     const page = req.params.page || 1;
 
@@ -614,7 +638,7 @@ app.post('/getPreferedProfiles:page' , async (req , res) =>{
 })
 
 //get profiles
-app.post('/getProfiles:page' , async (req , res) =>{
+app.post('/getProfiles:page'  , async (req , res) =>{
     const perPage = 15;
     const page = req.params.page || 1;
 
@@ -672,26 +696,43 @@ app.post('/getProfiles:page' , async (req , res) =>{
 // app.post('/getPreferedData:page' , async)
 
 //images delete
-app.post('/deleteImage' , (req , res) =>{
+// app.post('/deleteImage' , (req , res) =>{
+//     if(req.body.uid !== undefined && req.body.imagename !== undefined){
+//         let {uid , imagename} = req.body;
+//         const imagePath = path.join(__dirname, 'uploads', imagename);
+//         User.findOneAndUpdate({uid:uid} , {$pull : {userImages :imagename}} , {new:true})
+//         .exec((err , doc) =>{
+//             if(err){
+//                 return res.json(handleErr(err))
+//             }else{
+//                 return res.json(handleSuccess(doc));
+//             }
+//         })
+//     }else{
+//         return res.json(handleErr("Something is missing check UID or Image name"));
+//     }
+// })
+
+//image delete
+app.post('/deleteImage' , async (req , res) =>{
     if(req.body.uid !== undefined && req.body.imagename !== undefined){
-        let {uid , imagename} = req.body;
-        const imagePath = path.join(__dirname, 'uploads', imagename);
-        User.findOneAndUpdate({uid:uid} , {$pull : {userImages :imagename}} , {new:true})
-        .exec((err , doc) =>{
-            if(err){
-                return res.json(handleErr(err))
-            }else{
-                return res.json(handleSuccess(doc));
-            }
-        })
+        let{uid , imagename} = req.body;
+        try {
+            const doc  = await User.findOneAndUpdate({uid:uid} , {$pull : {userImages:imagename}} , {new:true})
+            return res.json(handleSuccess(doc));
+        } catch (error) {
+            return res.json(handleErr(error));
+        }
     }else{
-        return res.json(handleErr("Something is missing check UID or Image name"));
+        return res.json(handleErr("All Fields are required"));
     }
 })
 
 
+
+
 //get user status 
-app.post('/status' , (req , res) =>{
+app.post('/status' ,  (req , res) =>{
     if(req.body.uid !== undefined){
         let {uid} = req.body;
         try {
