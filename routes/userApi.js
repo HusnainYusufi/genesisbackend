@@ -724,8 +724,7 @@ app.post('/deleteImage' , async (req , res) =>{
                     if (err) {
                         throw err;
                     }
-                
-                    console.log("Delete File successfully.");
+                    return res.json(handleSuccess("deleted Successfully"));
                 });
             }
         } catch (error) {
