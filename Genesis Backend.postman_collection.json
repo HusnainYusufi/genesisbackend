@@ -151,37 +151,6 @@
 					"response": []
 				},
 				{
-					"name": "deleteImage",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"uid\" : \"1234567890\",\r\n    \"imagename\" : \"Default.jpg\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://d4dc-158-220-104-228.eu.ngrok.io/user/deleteImage",
-							"protocol": "https",
-							"host": [
-								"d4dc-158-220-104-228",
-								"eu",
-								"ngrok",
-								"io"
-							],
-							"path": [
-								"user",
-								"deleteImage"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "getUserStatus",
 					"request": {
 						"method": "POST",
@@ -308,6 +277,36 @@
 							"path": [
 								"user",
 								"getProfiles1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteImage (updated)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uid\" : \"fUCOYhr75Udt1ET4sjlAD6U2xnC2\",\r\n    \"imagename\" : \"files-1682597176948.webp\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://789b-158-220-104-228.ngrok-free.app/user/deleteImage",
+							"protocol": "https",
+							"host": [
+								"789b-158-220-104-228",
+								"ngrok-free",
+								"app"
+							],
+							"path": [
+								"user",
+								"deleteImage"
 							]
 						}
 					},

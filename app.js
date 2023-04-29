@@ -96,27 +96,50 @@ app.use(function (req, res, next) {
 //   }
 // });
 
+// app.get('/api/getFile:path', (req, res) => {
+//   if (req.params.path !== undefined && req.params.path !== "undefined" && req.params.path !== null) {
+//     try {
+//       var file = __dirname + '/uploads/' + req.params.path;
+
+//       var filename = path.basename(file);
+//       var mimetype = mime.getType(file);
+//       // console.log('file->', file)
+//       res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+//       res.setHeader('Content-type', mimetype);
+
+//       var filestream = fs.createReadStream(file);
+//       filestream.pipe(res);
+//     } catch (error) {
+//       return res.json(handleErr(error))
+//     }
+//   }
+//   else {
+//     return res.json(handleErr('Image path is required'))
+//   }
+// })
 app.get('/api/getFile:path', (req, res) => {
   if (req.params.path !== undefined && req.params.path !== "undefined" && req.params.path !== null) {
+    var file = __dirname + '/uploads/' + req.params.path;
     try {
-      var file = __dirname + '/uploads/' + req.params.path;
-
-      var filename = path.basename(file);
-      var mimetype = mime.getType(file);
-      // console.log('file->', file)
-      res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-      res.setHeader('Content-type', mimetype);
-
-      var filestream = fs.createReadStream(file);
-      filestream.pipe(res);
+      if (fs.existsSync(file)) {
+        var filename = path.basename(file);
+        var mimetype = mime.getType(file);
+        res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+        res.setHeader('Content-type', mimetype);
+        var filestream = fs.createReadStream(file);
+        filestream.pipe(res);
+      } else {
+        res.json(handleErr('File not found'))
+      }
     } catch (error) {
-      return res.json(handleErr(error))
+      res.json(handleErr(error))
     }
   }
   else {
-    return res.json(handleErr('Image path is required'))
+    res.json(handleErr('Image path is required'))
   }
 })
+
 
 app.use('/user' , UserApi);
 app.use('/community' , CommunityApi);
