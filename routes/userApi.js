@@ -189,7 +189,7 @@ app.post('/completeProfile:id'  ,(req , res) =>{
         let data = req.body;
         console.log(data);
         try {
-            User.findOneAndUpdate({uid : uid} , data , {new:true})
+            User.findOneAndUpdate({uid : uid , isDeleted:false} , data , {new:true})
             .exec((err , doc) =>{
                 if(err){
                     return res.json(handleErr(err))
@@ -219,7 +219,7 @@ app.post('/profileImage'  ,(req , res) =>{
                 data.userImages = image
                 console.log(data);
 
-                User.findOneAndUpdate({uid : req.body.uid} , {$push : {userImages:data.userImages}} , {new:true})
+                User.findOneAndUpdate({uid : req.body.uid , isDeleted:false} , {$push : {userImages:data.userImages}} , {new:true})
                 .exec((err , doc) =>{
                     if(err){
                         return res.json(handleErr(err))
@@ -237,7 +237,7 @@ app.post('/profileImage'  ,(req , res) =>{
 //search by username
 app.post('/searchUser' , (req , res) =>{
     if(req.body.username){
-        User.find({ username: { $regex: new RegExp(req.body.username, 'i') } })
+        User.find({ username: { $regex: new RegExp(req.body.username, 'i') } , isDeleted:false })
         .exec((err , doc) =>{
             if(err){
                 return res.json(handleErr(err))
@@ -275,7 +275,7 @@ app.post('/searchUser' , (req , res) =>{
 app.get('/profile:id'  ,async (req ,  res) =>{
     const profid = req.params.id;
     try {
-        const doc1 = await User.find({uid:profid}).exec()
+        const doc1 = await User.find({uid:profid , isDeleted:false}).exec()
         
         if(doc1 !== undefined){
             try {
@@ -314,7 +314,7 @@ app.post('/getUsers:page'  ,(req , res) =>{
     
     if(req.body.uid !== undefined){
         let {uid} = req.body;
-        User.find({uid:req.body.uid})
+        User.find({uid:req.body.uid , isDeleted:false})
         .exec((err , doc) =>{
             //console.log(doc);
             if(err){
@@ -483,7 +483,7 @@ app.post('/getPreferedProfiles:page'  , async (req , res) =>{
 
     if(req.body.uid !== undefined){
         try {
-            const doc = await User.findOne({uid:req.body.uid}).exec()
+            const doc = await User.findOne({uid:req.body.uid , isDeleted:false}).exec()
             if(doc !== null){
                 let data = {}
                     if(doc.gender === 'Male'){
@@ -644,7 +644,7 @@ app.post('/getProfiles:page'  , async (req , res) =>{
 
     if(req.body.uid !== undefined){
         try {
-            const doc = await User.findOne({uid:req.body.uid}).exec()
+            const doc = await User.findOne({uid:req.body.uid , isDeleted:false}).exec()
             if(doc !== null){
                 let data = {}
                     if(doc.gender === 'Male'){
@@ -718,7 +718,7 @@ app.post('/deleteImage' , async (req , res) =>{
     if(req.body.uid !== undefined && req.body.imagename !== undefined){
         let{uid , imagename} = req.body;
         try {
-            const doc  = await User.findOneAndUpdate({uid:uid} , {$pull : {userImages:imagename}} , {new:true})
+            const doc  = await User.findOneAndUpdate({uid:uid , isDeleted : false} , {$pull : {userImages:imagename}} , {new:true})
             if(doc !== null){
                 fs.unlink('./uploads/' + imagename , (err) => {
                     if (err) {

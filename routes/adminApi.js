@@ -102,4 +102,34 @@ app.post('/updateStatus:id' , async (req , res) =>{
         return res.json(handleErr("Profile ID is required"));
     }
 })
+
+
+app.post('/deleteUser' , async(req , res) =>{
+
+    if(req.body.userid !== undefined){
+
+        try {
+            const doc = await User.find({_id:req.body.userid}).exec();
+            if(doc !== null){
+                
+                try {
+                    const doc2 = await User.findOneAndUpdate({_id:req.body.userid} , {isDeleted:true}).exec();
+                    if(doc2 !== null){
+                        return res.json(handleSuccess("User has been deleted"));
+                    }
+                } catch (error) {
+                    return res.json(handleErr(error));
+                }
+            }else{
+                return res.json(handleErr("User not found"));
+            }
+        } catch (error) {
+            return res.json(handleErr(error));
+        }
+
+    }else{
+        return res.json(handleErr("User is required"));
+    }
+
+})
 module.exports = app;
